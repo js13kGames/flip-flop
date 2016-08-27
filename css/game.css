@@ -30,6 +30,10 @@ a, a:visited {
   margin: 0 auto;
   overflow: hidden;
 }
+#lcd {
+  display: flex;
+  margin-bottom: 1rem;
+}
 .sockets {
   display: flex;
   flex-direction: row;
@@ -51,14 +55,42 @@ a, a:visited {
   margin-bottom: 2rem;
 }
 .chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 6rem;
   height: 6rem;
-  border: 1px solid red;
-  text-align: center;
-  line-height: 6rem;
+  border: 1px solid black;
 }
 .chip.picked {
-  border: 1px solid green;
+  border: 1px solid white;
+}
+.moons,
+.suns,
+.waves,
+.leaves,
+.wyrms,
+.knots {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.moons {
+  background-color: silver;
+}
+.suns {
+  background-color: yellow;
+}
+.waves {
+  background-color: blue;
+}
+.leaves {
+  background-color: green;
+}
+.wyrms {
+  background-color: red;
+}
+.knots {
+  background-color: black;
 }
 .unselectable {
   -webkit-user-select: none;

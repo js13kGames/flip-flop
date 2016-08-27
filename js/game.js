@@ -101,8 +101,8 @@ chips.reset = function () {
   stack = []
 
   for (i = suits.length - 1; i >= 0; i -= 1) {
-    stack.push({suit1: suit, suit2: suit, value: 1})
-    stack.push({suit1: suit, suit2: suit, value: 10})
+    stack.push({suit1: suits[i], suit2: suits[i], value: 1})
+    stack.push({suit1: suits[i], suit2: suits[i], value: 10})
   }
 
   stack.push({suit1: 'moons', suit2: 'knots', value: 2})
@@ -178,10 +178,14 @@ chips.compute = function () {
 chips.render = function () {
   var $ = window.jQuery
     , i = 0
+    , html = ''
 
   if (dirty & 1) {
     for (i = 0; i < 3; i += 1) {
-      $('#chip'+i).html(grip[i].percent)
+      html = '<span class="'+grip[i].suit1+'"></span>'
+      html += grip[i].percent
+      html += '<span class="'+grip[i].suit2+'"></span>'
+      $('#chip'+i).html(html)
     }
   }
 
