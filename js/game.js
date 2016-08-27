@@ -78,6 +78,24 @@ sockets.pick = function (id) {
   }
 }
 
+sockets.get = function () {
+  return picked
+}
+
+sockets.insert = function (chip, glitch) {
+  if (picked && chip && glitch) {
+    if (glitch.value >= chip.value &&
+        chip.value > 1 && chip.value < 10 &&
+        glitch.value > 1 && glitch.value < 10) {
+      console.log('glitch')
+    } else {
+      console.log('inserting chip')
+    }
+
+    this.pick(null)
+  }
+}
+
 return sockets
 }())
 
@@ -161,18 +179,29 @@ chips.compute = function () {
     if (grip[i].value > 1 && grip[i].value < 10) {
       possible = 0
       for (j = 0; j < stack.length; j += 1) {
-        if (stack[j].value >= grip[i].value) {
+        if (stack[j].value < grip[i].value) {
           possible += 1
         }
       }
       grip[i].percent = (possible / stack.length).toFixed(1)
-    }
-    else {
+    } else {
       grip[i].percent = (1.0).toFixed(1)
     }
   }
 
   dirty |= 1
+}
+
+chips.cycle = function () {
+  var index = null
+
+  if (picked) {
+    index = parseInt(picked.slice(4), 10)
+    grip[index] = stack.pop()
+
+    this.compute()
+    this.pick(null)
+  }
 }
 
 chips.render = function () {
@@ -209,6 +238,21 @@ chips.pick = function (id) {
   }
 }
 
+chips.pop = function () {
+  return stack.pop()
+}
+
+chips.get = function () {
+  var index = 0
+
+  if (picked) {
+    index = parseInt(picked.slice(4), 10)
+    return grip[index]
+  }
+
+  return null
+}
+
 return chips
 }())
 
@@ -221,8 +265,22 @@ function onSocket (target, e) {
   Sockets.pick(target.unwrap().id)
 }
 
+function offSocket (target, e) {
+  var socket = Sockets.get()
+    , chip = Chips.get()
+
+  if (chip && socket) {
+    Sockets.insert(chip, Chips.pop())
+    Chips.cycle()
+  }
+}
+
 function onChip (target, e) {
   Chips.pick(target.unwrap().id)
+}
+
+function offChip (target, e) {
+  offSocket(target, e)
 }
 
 function render () {
@@ -304,7 +362,7 @@ Game.play = function () {
 
   for (x = 0; x < 4; x += 1) {
     for (y = 0; y < 4; y += 1) {
-      $('#socket'+x+''+y).touch(onSocket)
+      $('#socket'+x+''+y).touch(onSocket, offSocket)
     }
   }
 
@@ -315,7 +373,7 @@ Game.play = function () {
   $('#chips').html(html)
 
   for (x = 0; x < 3; x += 1) {
-    $('#chip'+x).touch(onChip)
+    $('#chip'+x).touch(onChip, offChip)
   }
 
   $(window).on('hashchange', onHashChange)
