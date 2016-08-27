@@ -39,6 +39,48 @@ rng.shuffle = function (array) {
 return rng
 }())
 
+var Sockets = (function () {
+'use strict';
+
+var sockets = {}
+  , dirty = 0
+  , picked = null
+
+sockets.reset = function () {
+  picked = null
+  dirty |= 2
+}
+
+sockets.render = function () {
+  var $ = window.jQuery
+    , x = 0
+    , y = 0
+
+  if (dirty & 2) {
+    for (x = 0; x < 4; x += 1) {
+      for (y = 0; y < 4; y += 1) {
+        if ('socket'+x+''+y !== picked) {
+          $('#socket'+x+''+y).remove('picked')
+        } else {
+          $('#socket'+x+''+y).add('picked')
+        }
+      }
+    }
+  }
+
+  dirty = 0
+}
+
+sockets.pick = function (id) {
+  if (picked !== id) {
+    picked = id
+    dirty |= 2
+  }
+}
+
+return sockets
+}())
+
 var Chips = (function () {
 'use strict';
 
@@ -105,6 +147,9 @@ chips.reset = function () {
   grip.push(stack.pop())
 
   this.compute()
+
+  picked = null
+  dirty |= 2
 }
 
 chips.compute = function () {
@@ -168,6 +213,10 @@ return chips
 
 var color = undefined
 
+function onSocket (target, e) {
+  Sockets.pick(target.unwrap().id)
+}
+
 function onChip (target, e) {
   Chips.pick(target.unwrap().id)
 }
@@ -175,6 +224,7 @@ function onChip (target, e) {
 function render () {
   requestAnimationFrame(render)
 
+  Sockets.render()
   Chips.render()
 }
 
@@ -192,6 +242,7 @@ function newColor () {
 }
 
 function resetGame () {
+  Sockets.reset()
   Chips.reset()
 }
 
@@ -241,12 +292,17 @@ Game.play = function () {
   for (x = 0; x < 4; x += 1) {
     html += '<div class="sockets">'
     for (y = 0; y < 4; y += 1) {
-      html += '<p class="socket"></p>'
+      html += '<p id="socket'+x+''+y+'" class="socket"></p>'
     }
     html += '</div>'
   }
-
   $('#fab').html(html)
+
+  for (x = 0; x < 4; x += 1) {
+    for (y = 0; y < 4; y += 1) {
+      $('#socket'+x+''+y).touch(onSocket)
+    }
+  }
 
   html = ''
   for (x = 0; x < 3; x += 1) {
