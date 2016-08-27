@@ -83,31 +83,33 @@ sockets.render = function () {
 }
 
 sockets.pick = function (id) {
-  if (picked !== id && Object.keys(chipped).indexOf(id) < 0) {
+  if (picked !== id) {
     picked = id
     dirty |= 2
   }
 }
 
-sockets.get = function () {
-  return picked
+sockets.canInsert = function () {
+  return picked && !chipped[picked]
+}
+
+sockets.canPower = function () {
+  return picked && chipped[picked]
 }
 
 sockets.insert = function (chip, glitch) {
-  if (picked && chip && glitch) {
-    if (glitch.value >= chip.value &&
-        chip.value > 1 && chip.value < 10 &&
-        glitch.value > 1 && glitch.value < 10)
-    {
-      glitch.percent = chip.percent
-      chip = glitch
-    }
-
-    chipped[picked] = chip
-    dirty |= 1
-
-    this.pick(null)
+  if (glitch.value >= chip.value &&
+      chip.value > 1 && chip.value < 10 &&
+      glitch.value > 1 && glitch.value < 10)
+  {
+    glitch.percent = chip.percent
+    chip = glitch
   }
+
+  chipped[picked] = chip
+  dirty |= 1
+
+  this.pick(null)
 }
 
 return sockets
@@ -280,21 +282,29 @@ function onSocket (target, e) {
 }
 
 function offSocket (target, e) {
-  var socket = Sockets.get()
-    , chip = Chips.get()
+}
 
-  if (chip && socket) {
-    Sockets.insert(chip, Chips.pop())
-    Chips.cycle()
+function onPower (target, e) {
+}
+
+function offPower (target, e) {
+  if (Sockets.canPower()) {
   }
 }
 
 function onChip (target, e) {
-  Chips.pick(target.unwrap().id)
+  if (Sockets.canInsert()) {
+    Chips.pick(target.unwrap().id)
+  }
 }
 
 function offChip (target, e) {
-  offSocket(target, e)
+  var chip = Chips.get()
+
+  if (Sockets.canInsert()) {
+    Sockets.insert(chip, Chips.pop())
+    Chips.cycle()
+  }
 }
 
 function render () {
@@ -380,12 +390,13 @@ Game.play = function () {
     }
   }
 
-  html = ''
+  html = '<p id="power"></p>'
   for (x = 0; x < 3; x += 1) {
     html += '<p id="chip'+ x +'" class="chip"></p>'
   }
   $('#chips').html(html)
 
+  $('#power').touch(onPower, offPower)
   for (x = 0; x < 3; x += 1) {
     $('#chip'+x).touch(onChip, offChip)
   }
