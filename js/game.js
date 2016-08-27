@@ -47,6 +47,7 @@ var chips = {}
   , grip = []
   , heap = []
   , dirty = 0
+  , picked = null
 
 chips.reset = function () {
   var i = 0
@@ -126,18 +127,36 @@ chips.compute = function () {
     }
   }
 
-  dirty = 1
+  dirty |= 1
 }
 
 chips.render = function () {
   var $ = window.jQuery
+    , i = 0
 
-  if (dirty) {
-    $('#chip0').html(grip[0].percent)
-    $('#chip1').html(grip[1].percent)
-    $('#chip2').html(grip[2].percent)
-    console.log('chips.render')
-    dirty = 0
+  if (dirty & 1) {
+    for (i = 0; i < 3; i += 1) {
+      $('#chip'+i).html(grip[i].percent)
+    }
+  }
+
+  if (dirty & 2) {
+    for (i = 0; i < 3; i += 1) {
+      if ('chip'+i !== picked) {
+        $('#chip'+i).remove('picked')
+      } else {
+        $('#chip'+i).add('picked')
+      }
+    }
+  }
+
+  dirty = 0
+}
+
+chips.pick = function (id) {
+  if (picked !== id) {
+    picked = id
+    dirty |= 2
   }
 }
 
@@ -148,6 +167,10 @@ return chips
 'use strict';
 
 var color = undefined
+
+function onChip (target, e) {
+  Chips.pick(target.unwrap().id)
+}
 
 function render () {
   requestAnimationFrame(render)
@@ -230,6 +253,10 @@ Game.play = function () {
     html += '<p id="chip'+ x +'" class="chip"></p>'
   }
   $('#chips').html(html)
+
+  for (x = 0; x < 3; x += 1) {
+    $('#chip'+x).touch(onChip)
+  }
 
   $(window).on('hashchange', onHashChange)
 

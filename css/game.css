@@ -54,6 +54,9 @@ a, a:visited {
   text-align: center;
   line-height: 6rem;
 }
+.chip.picked {
+  border: 1px solid green;
+}
 .unselectable {
   -webkit-user-select: none;
   -moz-user-select: none;
