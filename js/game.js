@@ -43,6 +43,7 @@ var Sockets = (function () {
 'use strict';
 
 var sockets = {}
+  , chipped = {}
   , dirty = 0
   , picked = null
 
@@ -55,6 +56,16 @@ sockets.render = function () {
   var $ = window.jQuery
     , x = 0
     , y = 0
+    , html = ''
+
+  if (dirty & 1) {
+    Object.keys(chipped).forEach(function (id) {
+      html = '<span class="'+chipped[id].suit1+'"></span>'
+      html += chipped[id].percent
+      html += '<span class="'+chipped[id].suit2+'"></span>'
+      $('#'+id).html(html)
+    })
+  }
 
   if (dirty & 2) {
     for (x = 0; x < 4; x += 1) {
@@ -72,7 +83,7 @@ sockets.render = function () {
 }
 
 sockets.pick = function (id) {
-  if (picked !== id) {
+  if (picked !== id && Object.keys(chipped).indexOf(id) < 0) {
     picked = id
     dirty |= 2
   }
@@ -86,11 +97,14 @@ sockets.insert = function (chip, glitch) {
   if (picked && chip && glitch) {
     if (glitch.value >= chip.value &&
         chip.value > 1 && chip.value < 10 &&
-        glitch.value > 1 && glitch.value < 10) {
-      console.log('glitch')
-    } else {
-      console.log('inserting chip')
+        glitch.value > 1 && glitch.value < 10)
+    {
+      glitch.percent = chip.percent
+      chip = glitch
     }
+
+    chipped[picked] = chip
+    dirty |= 1
 
     this.pick(null)
   }

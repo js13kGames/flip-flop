@@ -41,6 +41,9 @@ a, a:visited {
   margin-bottom: 1rem;
 }
 .socket {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 6rem;
   height: 6rem;
   border: 1px solid black;
