@@ -19,6 +19,11 @@ task :test => 'css/game.min.css' do
   fail 'zip file too big!' if size > MAX_SIZE
 end
 
+desc 'Publish to the website'
+task :publish => 'css/game.min.css' do
+  sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/js13k2016/'
+end
+
 desc 'Run Autoprefixer on the CSS'
 task :autoprefix => 'css/game.min.css'
 
