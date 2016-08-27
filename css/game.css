@@ -6,13 +6,13 @@
   box-sizing: border-box;
 }
 html {
-  font-family: TImes,'Times New Roman', serif;
+  font-family: Helvetica,Arial,sans-serif;
   font-weight: normal;
   font-size: 62.5%;
 }
 body {
-  background: rgb(115, 115, 115);
-  color: rgb(240, 240, 240);
+  background: rgb(36, 36, 36);
+  color: rgb(84, 40, 98);
   font-size: 1.6rem;
 }
 a, a:visited {
@@ -29,10 +29,27 @@ a, a:visited {
   height: 37.2rem;
   margin: 0 auto;
   overflow: hidden;
+  background: rgb(29, 28, 47);
 }
-#lcd {
+.header {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 1rem;
   margin-bottom: 1rem;
+}
+h1 {
+  font-size: 2.4rem;
+  line-height: 4.8rem;
+  color: rgb(229, 232, 250);
+}
+.lcd {
+  font-size: 4.8rem;
+  line-height: 4.8rem;
+  font-family: monospace;
+  background: rgb(65, 62, 69);
+  color: rgb(207, 114, 131);
+  border: 2px solid rgb(50, 49, 55);
 }
 .sockets {
   display: flex;
@@ -44,9 +61,9 @@ a, a:visited {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 6rem;
-  height: 6rem;
-  border: 1px solid black;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 1px solid rgb(204, 164, 102);
 }
 .socket.picked {
   border: 1px solid white;
@@ -58,21 +75,24 @@ a, a:visited {
   margin-bottom: 2rem;
 }
 #power {
-  width: 6rem;
-  height: 6rem;
-  border: 1px solid black;
-  border-radius: 3rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 2px solid rgb(50, 49, 55);
+  border-radius: 2.4rem;
 }
 .chip {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  width: 6rem;
-  height: 6rem;
-  border: 1px solid black;
+  width: 4.8rem;
+  height: 4.8rem;
+  background: rgb(65, 62, 69);
+  color: rgb(151, 146, 142);
+  border: 2px solid rgb(50, 49, 55);
 }
 .chip.picked {
-  border: 1px solid white;
+  border: 1px solid rgb(233, 230, 225);
 }
 .moons,
 .suns,
@@ -80,8 +100,10 @@ a, a:visited {
 .leaves,
 .wyrms,
 .knots {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(50, 49, 55);
 }
 .moons {
   background-color: silver;
@@ -107,4 +129,24 @@ a, a:visited {
   -ms-user-select: none;
   -khtml-user-select: none;
   -webkit-touch-callout: none;
+}
+.colophon {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.colophon > a:hover {
+  cursor: auto;
+  text-decoration: underline;
+}
+abbr[title="and"] {
+  font-family: "Adobe Caslon Pro","Baskerville","Goudy Old Style","Palatino", "Palatino Linotype","Book Antiqua","Georgia","Times New Roman","Times", serif;
+  font-style: italic;
+  font-size: 110%;
+  cursor: auto;
+  /* Prevents `abbr` affecting `line-height`. */
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
 }
