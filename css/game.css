@@ -22,7 +22,8 @@ a, a:visited {
 /* GAME */
 #board {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
   /* Usable area on an iPhone 4 is 320x372 pixels */
   width: 32rem;
   height: 37.2rem;
@@ -30,11 +31,24 @@ a, a:visited {
   overflow: hidden;
 }
 .sockets {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 1rem;
 }
 .socket {
-  display: inline-block;
   width: 6rem;
   height: 6rem;
   border: 1px solid #000;
+}
+#chips {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+.chip {
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid red;
 }

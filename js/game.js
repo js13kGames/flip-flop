@@ -23,7 +23,13 @@ Game.play = function () {
     html += '</div>'
   }
 
-  $('#board').html(html)
+  $('#fab').html(html)
+
+  html = ''
+  for (x = 0; x < 3; x += 1) {
+    html += '<p class="chip"></p>'
+  }
+  $('#chips').html(html)
 
   startGame(render)
 }
