@@ -50,6 +50,7 @@ var chips = {}
 
 chips.reset = function () {
   var i = 0
+    , j = 0
     , suit = null
     , suits = ['moons', 'suns', 'waves', 'leaves', 'wyrms', 'knots']
 
@@ -102,11 +103,42 @@ chips.reset = function () {
   grip.push(stack.pop())
   grip.push(stack.pop())
 
-  // Make sure the grip rerenders
+  this.compute()
+}
+
+chips.compute = function () {
+  var i = 0
+    , j = 0
+    , possible = 0
+
+  for (i = 0; i < grip.length; i += 1) {
+    if (grip[i].value > 1 && grip[i].value < 10) {
+      possible = 0
+      for (j = 0; j < stack.length; j += 1) {
+        if (stack[j].value >= grip[i].value) {
+          possible += 1
+        }
+      }
+      grip[i].percent = (possible / stack.length).toFixed(1)
+    }
+    else {
+      grip[i].percent = 1.0
+    }
+  }
+
   dirty = 1
 }
 
 chips.render = function () {
+  var $ = window.jQuery
+
+  if (dirty) {
+    $('#chip0').html(grip[0].percent)
+    $('#chip1').html(grip[1].percent)
+    $('#chip2').html(grip[2].percent)
+    console.log('chips.render')
+    dirty = 0
+  }
 }
 
 return chips
@@ -145,7 +177,7 @@ Game.play = function () {
 
   html = ''
   for (x = 0; x < 3; x += 1) {
-    html += '<p class="chip"></p>'
+    html += '<p id="chip'+ x +'" class="chip"></p>'
   }
   $('#chips').html(html)
 
