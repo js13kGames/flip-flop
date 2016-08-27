@@ -27,6 +27,20 @@ Fn.prototype.html = function (value) {
   return this
 }
 
+Fn.prototype.on = function (message, callback) {
+  if (this.element) {
+    this.element.addEventListener(message, callback, false)
+  }
+  return this
+}
+
+Fn.prototype.off = function (message, callback) {
+  if (this.element) {
+    this.element.removeEventListener(message, callback, false)
+  }
+  return this
+}
+
 function root (selector) {
   return new Fn(selector)
 }

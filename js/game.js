@@ -122,7 +122,7 @@ chips.compute = function () {
       grip[i].percent = (possible / stack.length).toFixed(1)
     }
     else {
-      grip[i].percent = 1.0
+      grip[i].percent = (1.0).toFixed(1)
     }
   }
 
@@ -147,14 +147,64 @@ return chips
 ;(function (Game) {
 'use strict';
 
+var color = undefined
+
 function render () {
   requestAnimationFrame(render)
 
   Chips.render()
 }
 
-function startGame (callback) {
+// Pick a random color out of the RGB color space.
+// Don't use the PRNG, since it will be seeded with the color.
+function newColor () {
+  var hash = color
+
+  do {
+    hash = Math.floor(Math.random() * 16777216)
+    hash = ('000000' + hash.toString(16)).substr(-6)
+  } while (hash === color)
+
+  color = hash
+}
+
+function resetGame () {
   Chips.reset()
+}
+
+function onHashChange () {
+  var hash = window.location.hash.substring(1)
+  if (/^[0-9A-F]{6}$/i.test(hash)) {
+    color = hash
+    PRNG.seed(parseInt(color, 16))
+  }
+  resetGame()
+}
+
+function startGame (callback) {
+  var hash = window.location.hash.substring(1)
+    , reloaded = false
+
+  if (/^[0-9A-F]{6}$/i.test(hash)) {
+    if (color === hash) {
+      // Continuing saved game...
+      reloaded = true
+    } else {
+      // Replaying a linked game...
+      color = hash
+      PRNG.seed(parseInt(color, 16))
+    }
+  } else {
+    // Playing a new game...
+    newColor()
+    PRNG.seed(parseInt(color, 16))
+  }
+
+  if (window.location.hash.substring(1) !== color) {
+    window.location.hash = color
+  } else if (!reloaded) {
+    resetGame()
+  }
 
   requestAnimationFrame(callback)
 }
@@ -180,6 +230,8 @@ Game.play = function () {
     html += '<p id="chip'+ x +'" class="chip"></p>'
   }
   $('#chips').html(html)
+
+  $(window).on('hashchange', onHashChange)
 
   startGame(render)
 }
