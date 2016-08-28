@@ -116,22 +116,22 @@ h1 {
   border: 1px solid rgb(50, 49, 55);
 }
 .moons {
-  background-color: silver;
+  background-color: rgb(213, 94, 0);
 }
 .suns {
-  background-color: yellow;
+  background-color: rgb(230, 159, 0);
 }
 .waves {
-  background-color: blue;
+  background-color: rgb(240, 228, 66);
 }
 .leaves {
-  background-color: green;
+  background-color: rgb(0, 158, 115);
 }
 .wyrms {
-  background-color: red;
+  background-color: rgb(0, 144, 178);
 }
 .knots {
-  background-color: black;
+  background-color: rgb(204, 121, 167);
 }
 .unselectable {
   -webkit-user-select: none;
