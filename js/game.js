@@ -44,12 +44,19 @@ var Sockets = (function () {
 
 var sockets = {}
   , chipped = {}
+  , powered = {}
   , dirty = 0
   , picked = null
 
 sockets.reset = function () {
+  chipped = {}
+  dirty |= 1
+
   picked = null
   dirty |= 2
+
+  powered = {}
+  dirty |= 4
 }
 
 sockets.render = function () {
@@ -63,7 +70,7 @@ sockets.render = function () {
       html = '<span class="'+chipped[id].suit1+'"></span>'
       html += chipped[id].percent
       html += '<span class="'+chipped[id].suit2+'"></span>'
-      $('#'+id).html(html)
+      $('#'+id).html(html).add('chipped')
     })
   }
 
@@ -79,22 +86,39 @@ sockets.render = function () {
     }
   }
 
+  if (dirty & 4) {
+    Object.keys(powered).forEach(function (id) {
+      $('#'+id).add('powered')
+    })
+  }
+
   dirty = 0
 }
 
 sockets.pick = function (id) {
-  if (picked !== id) {
+  if (picked !== id && !(id in powered)) {
     picked = id
     dirty |= 2
   }
 }
 
 sockets.canInsert = function () {
-  return picked && !chipped[picked]
+  var chipped_count = Object.keys(chipped).length
+    , powered_count = Object.keys(powered).length
+    , needs_more_power = false
+    , i = 0
+
+  for (i = 1; !needs_more_power && i <= 4; i += 1) {
+    if (powered_count < i && chipped_count >= i * 4) {
+      needs_more_power = true
+    }
+  }
+
+  return picked && !(picked in chipped) && !needs_more_power
 }
 
 sockets.canPower = function () {
-  return picked && chipped[picked]
+  return picked && (picked in chipped) && !(picked in powered)
 }
 
 sockets.insert = function (chip, glitch) {
@@ -108,6 +132,13 @@ sockets.insert = function (chip, glitch) {
 
   chipped[picked] = chip
   dirty |= 1
+
+  this.pick(null)
+}
+
+sockets.power = function (chip) {
+  powered[picked] = chip
+  dirty |= 4
 
   this.pick(null)
 }
@@ -288,7 +319,10 @@ function onPower (target, e) {
 }
 
 function offPower (target, e) {
+  var chip = Chips.get()
+
   if (Sockets.canPower()) {
+    Sockets.power(chip)
   }
 }
 
