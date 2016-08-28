@@ -21,7 +21,7 @@ end
 
 desc 'Publish to the website'
 task :publish => 'css/game.min.css' do
-  sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/js13k2016/'
+  sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/flip-flop/'
 end
 
 desc 'Run Autoprefixer on the CSS'
