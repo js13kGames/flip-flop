@@ -67,9 +67,9 @@ sockets.render = function () {
 
   if (dirty & 1) {
     Object.keys(chipped).forEach(function (id) {
-      html = '<span class="'+chipped[id].suit1+'"></span>'
+      html = '<span class="led '+chipped[id].suit1+'"></span>'
       html += chipped[id].percent
-      html += '<span class="'+chipped[id].suit2+'"></span>'
+      html += '<span class="led '+chipped[id].suit2+'"></span>'
       $('#'+id).html(html).add('chipped')
     })
   }
@@ -323,9 +323,9 @@ chips.render = function () {
 
   if (dirty & 1) {
     for (i = 0; i < 3; i += 1) {
-      html = '<span class="'+grip[i].suit1+'"></span>'
+      html = '<span class="led '+grip[i].suit1+'"></span>'
       html += grip[i].percent
-      html += '<span class="'+grip[i].suit2+'"></span>'
+      html += '<span class="led '+grip[i].suit2+'"></span>'
       $('#chip'+i).html(html)
     }
   }
