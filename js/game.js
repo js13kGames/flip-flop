@@ -131,16 +131,81 @@ sockets.insert = function (chip, glitch) {
   }
 
   chipped[picked] = chip
+  chipped[picked].id = picked
   dirty |= 1
 
   this.pick(null)
 }
 
-sockets.power = function (chip) {
-  powered[picked] = chip
+sockets.power = function () {
+  powered[picked] = chipped[picked]
+  powered[picked].id = picked
   dirty |= 4
 
   this.pick(null)
+}
+
+// Collect a list of adjacent sockets with the same suit
+function collectAdjacent (suit, socket) {
+  var x = 0
+    , y = 0
+    , seen = []
+    , possible = []
+    , collected = []
+
+  possible.push(socket)
+
+  while (possible.length > 0) {
+    socket = possible.pop()
+
+    if (seen.indexOf(socket) < 0) {
+      seen.push(socket)
+
+      if (socket in chipped) {
+        if (chipped[socket].suit1 === suit || chipped[socket].suit2 === suit) {
+          collected.push(socket)
+
+          x = parseInt(socket.slice(6)[0], 10)
+          y = parseInt(socket.slice(6)[1], 10)
+
+          if (x-1 >= 0) { possible.push('socket'+(x-1)+''+y) }
+          if (x+1 <= 3) { possible.push('socket'+(x+1)+''+y) }
+          if (y-1 >= 0) { possible.push('socket'+x+''+(y-1)) }
+          if (y+1 <= 3) { possible.push('socket'+x+''+(y+1)) }
+        }
+      }
+    }
+  }
+
+  return collected
+}
+
+sockets.base = function () {
+  var id = null
+    , chip = null
+    , totals = {}
+    , adjacent = []
+    , score = 0
+
+  for (id in powered) {
+    chip = powered[id]
+
+    adjacent = collectAdjacent(chip.suit1, chip.id)
+    totals[chip.suit1+':'+adjacent.sort().join('')] = adjacent.length
+
+    adjacent = collectAdjacent(chip.suit2, chip.id)
+    totals[chip.suit2+':'+adjacent.sort().join('')] = adjacent.length
+  }
+
+  for (id in totals) {
+    score += totals[id]
+  }
+
+  return score
+}
+
+sockets.bonus = function () {
+  return 0
 }
 
 return sockets
@@ -303,6 +368,48 @@ chips.get = function () {
 return chips
 }())
 
+var Score = (function () {
+'use strict';
+
+var score = {}
+  , base = 0
+  , bonus = 0
+  , dirty = 0
+
+score.reset = function () {
+  base = 0
+  bonus = 0
+  dirty |= 1
+}
+
+score.render = function () {
+  var $ = window.jQuery
+
+  if (dirty & 1) {
+    $('#score').html(bonus+'.'+((base < 10) ? ('0'+base) : base))
+  }
+
+  dirty = 0
+}
+
+score.compute = function () {
+  var new_base = Sockets.base()
+    , new_bonus = Sockets.bonus()
+
+  if (base !== new_base) {
+    base = new_base
+    dirty |= 1
+  }
+
+  if (bonus !== new_bonus) {
+    bonus = new_bonus
+    dirty |= 1
+  }
+}
+
+return score
+}())
+
 ;(function (Game) {
 'use strict';
 
@@ -319,10 +426,9 @@ function onPower (target, e) {
 }
 
 function offPower (target, e) {
-  var chip = Chips.get()
-
   if (Sockets.canPower()) {
-    Sockets.power(chip)
+    Sockets.power()
+    Score.compute()
   }
 }
 
@@ -338,6 +444,7 @@ function offChip (target, e) {
   if (Sockets.canInsert()) {
     Sockets.insert(chip, Chips.pop())
     Chips.cycle()
+    Score.compute()
   }
 }
 
@@ -346,6 +453,7 @@ function render () {
 
   Sockets.render()
   Chips.render()
+  Score.render()
 }
 
 // Pick a random color out of the RGB color space.
@@ -364,6 +472,7 @@ function newColor () {
 function resetGame () {
   Sockets.reset()
   Chips.reset()
+  Score.reset()
 }
 
 function onHashChange () {
