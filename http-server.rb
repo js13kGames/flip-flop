@@ -13,6 +13,7 @@ class NoCacheFileHandler < WEBrick::HTTPServlet::FileHandler
 
   def do_GET request, response
     super
+    `rake autoprefix`
     prevent_caching response
   end
 end
