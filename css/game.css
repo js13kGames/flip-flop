@@ -126,7 +126,6 @@ h1 {
   border: 2px solid rgb(50, 49, 55);
   border-radius: 2.4rem;
 }
-.socket.chipped,
 .chip {
   display: flex;
   flex-direction: column;

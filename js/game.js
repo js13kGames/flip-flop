@@ -39,6 +39,18 @@ rng.shuffle = function (array) {
 return rng
 }())
 
+function makeChipHTML (chip) {
+  var html = ''
+
+  html += '<p class="chip">'
+  html += '<span class="led '+chip.suit1+'"></span>'
+  html += chip.percent
+  html += '<span class="led '+chip.suit2+'"></span>'
+  html += '</p>'
+
+  return html
+}
+
 var Sockets = (function () {
 'use strict';
 
@@ -67,10 +79,7 @@ sockets.render = function () {
 
   if (dirty & 1) {
     Object.keys(chipped).forEach(function (id) {
-      html = '<span class="led '+chipped[id].suit1+'"></span>'
-      html += chipped[id].percent
-      html += '<span class="led '+chipped[id].suit2+'"></span>'
-      $('#'+id).html(html).add('chipped')
+      $('#'+id).html(makeChipHTML(chipped[id])).add('chipped')
     })
   }
 
@@ -323,10 +332,7 @@ chips.render = function () {
 
   if (dirty & 1) {
     for (i = 0; i < 3; i += 1) {
-      html = '<span class="led '+grip[i].suit1+'"></span>'
-      html += grip[i].percent
-      html += '<span class="led '+grip[i].suit2+'"></span>'
-      $('#chip'+i).html(html)
+      $('#chip'+i).html(makeChipHTML(grip[i]))
     }
   }
 
@@ -535,7 +541,7 @@ Game.play = function () {
 
   html = '<p id="power"></p>'
   for (x = 0; x < 3; x += 1) {
-    html += '<p id="chip'+ x +'" class="chip"></p>'
+    html += '<p id="chip'+ x +'"></p>'
   }
   $('#chips').html(html)
 
