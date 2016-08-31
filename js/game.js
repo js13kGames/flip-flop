@@ -42,11 +42,25 @@ return rng
 function makeChipHTML (chip) {
   var html = ''
 
+  html += '<div class="dip">'
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
   html += '<p class="chip">'
   html += '<span class="led '+chip.suit1+'"></span>'
   html += chip.percent
   html += '<span class="led '+chip.suit2+'"></span>'
   html += '</p>'
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
+  html += '</div>'
 
   return html
 }
@@ -538,12 +552,6 @@ Game.play = function () {
       $('#socket'+x+''+y).touch(onSocket, offSocket)
     }
   }
-
-  html = '<p id="power"></p>'
-  for (x = 0; x < 3; x += 1) {
-    html += '<p id="chip'+ x +'"></p>'
-  }
-  $('#chips').html(html)
 
   $('#power').touch(onPower, offPower)
   for (x = 0; x < 3; x += 1) {

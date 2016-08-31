@@ -11,7 +11,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: rgb(36, 36, 36);
+  background: #f0dbc9;
   color: rgb(84, 40, 98);
   font-size: 1.6rem;
 }
@@ -20,16 +20,40 @@ a, a:visited {
   text-decoration: none;
 }
 /* GAME */
-#board {
-  position: relative;
+.bench {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   /* Usable area on an iPhone 4 is 320x372 pixels */
   width: 32rem;
   height: 37.2rem;
   margin: 0 auto;
   overflow: hidden;
-  background: rgb(29, 28, 47);
+}
+.workspace {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.1rem;
+}
+.pcb {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+  position: relative;
+  background: rgb(253,250,249);
+  color: rgb(22,24,23);
+  border: 1px solid rgb(229,223,210);
+  border-radius: 0.5rem;
+  box-shadow:
+    0.1rem 0.1rem 0.3rem rgb(51,51,51)
+  ;
+}
+.tray {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .header {
   display: flex;
@@ -37,6 +61,7 @@ a, a:visited {
   justify-content: space-between;
   padding: 0 1rem;
   margin-bottom: 1rem;
+  display: none;
 }
 h1 {
   font-weight: normal;
@@ -55,7 +80,6 @@ h1 {
 .sockets {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   margin-bottom: 1rem;
 }
 .socket {
@@ -69,6 +93,9 @@ h1 {
     inset 0 0 0 0.2rem rgb(29,28,47)
   , inset 0 0 0 0.3rem rgba(229,232,250,0.5)
   ;
+}
+.socket + .socket {
+  margin-left: 1rem;
 }
 .socket:before {
   content: '';
@@ -114,37 +141,50 @@ h1 {
 .socket.picked {
   border: 2px solid white;
 }
-#chips {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 2rem;
-}
 #power {
   width: 4.8rem;
   height: 4.8rem;
   border: 2px solid rgb(50, 49, 55);
   border-radius: 2.4rem;
 }
-.chip {
+#chip0,
+#chip1,
+#chip2 {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 0.5rem;
+  justify-content: center;
   width: 4.8rem;
   height: 4.8rem;
-  background: rgb(65, 62, 69);
-  color: rgb(151, 146, 142);
-  box-shadow:
-    inset -0.8rem 0 0 0 rgb(29,28,48)
-  , inset -1rem 0 0 0 rgb(50,49,55)
-  , inset  0.8rem 0 0 0 rgb(29,28,48)
-  , inset  1rem 0 0 0 rgb(50,49,55)
-  , inset 0 0 0 0.2rem rgb(50,49,55)
-  ;
 }
-.chip.picked {
-  border: 1px solid rgb(233, 230, 225);
+.dip {
+  display: flex;
+  flex-direction: row;
+}
+.pins {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+.pin {
+  width: 0.5rem;
+  height: 0.75rem;
+  background: silver;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(51,51,51);
+}
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3rem;
+  background: rgb(173, 170, 165);
+  background: rgb(82, 83, 85);
+  color: rgb(79, 72, 66);
+  color: rgb(156, 148, 121);
+  border: 2px solid rgb(226, 176, 82);
+  border: 2px solid rgb(50, 49, 55);
+  border-radius: 0.3rem;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(51,51,51);
 }
 .led {
   width: 1rem;
@@ -191,8 +231,8 @@ h1 {
 .colophon {
   font-size: 1.4rem;
   line-height: 1.4rem;
-  text-align: center;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
+  color: rgba(0,0,0,.3);
 }
 .colophon > a:hover {
   cursor: auto;
