@@ -83,63 +83,50 @@ h1 {
   margin-bottom: 1rem;
 }
 .socket {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 4.8rem;
   height: 4.8rem;
-  box-shadow:
-    inset 0 0 0 0.2rem rgb(29,28,47)
-  , inset 0 0 0 0.3rem rgba(229,232,250,0.5)
-  ;
+  border: 2px solid currentColor;
 }
 .socket + .socket {
   margin-left: 1rem;
 }
-.socket:before {
-  content: '';
-  width: 0.6rem;
-  height: 0.6rem;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -0.3rem;
-  margin-top: -0.3rem;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow:
-    -1.5rem -1.5rem 0 rgb(204,164,102)
-  , -1.5rem  0      0 rgb(204,164,102)
-  , -1.5rem  1.5rem 0 rgb(204,164,102)
-  ,  1.5rem -1.5rem 0 rgb(204,164,102)
-  ,  1.5rem  1.5rem 0 rgb(204,164,102)
-  ;
-}
-.socket:after {
-  content: '';
-  width: 1.2rem;
-  height: 0.6rem;
-  position: absolute;
-  top: 0.3rem;
-  margin-left: -0.6rem;
-  left: 50%;
-  border: 1px solid rgba(229,232,250,0.5);
-  border-bottom-left-radius: 0.6rem;
-  border-bottom-right-radius: 0.6rem;
-  border-top: 0;
-}
-.socket.chipped:before {
-  content: none;
-}
-.socket.chipped:after {
-  content: none;
-}
 .socket.powered {
-  border: 2px solid rgb(207, 114, 131);
+  color: pink;
 }
 .socket.picked {
-  border: 2px solid white;
+  color: gray;
+}
+.trace {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+.pads {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.1rem;
+}
+.pad {
+  width: 1rem;
+  height: .7rem;
+  background: #d4af36;
+  border-radius: 50%;
+}
+.cutout {
+  width: 1.5rem;
+  height: 0.75rem;
+  margin-top: -2px;
+  background: rgb(253,250,249);
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  border: 2px solid currentColor;
+  border-top: 0;
 }
 #power {
   width: 4.8rem;

@@ -39,6 +39,28 @@ rng.shuffle = function (array) {
 return rng
 }())
 
+function makeSocketHTML () {
+  var html = ''
+
+  html += '<div class="trace">'
+  html += '<div class="pads">'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '</div>'
+  html += '<span class="cutout"></span>'
+  html += '<div class="pads">'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '<span class="pad"></span>'
+  html += '</div>'
+  html += '</div>'
+
+  return html
+}
+
 function makeChipHTML (chip) {
   var html = ''
 
@@ -49,11 +71,11 @@ function makeChipHTML (chip) {
   html += '<span class="pin"></span>'
   html += '<span class="pin"></span>'
   html += '</div>'
-  html += '<p class="chip">'
+  html += '<div class="chip">'
   html += '<span class="led '+chip.suit1+'"></span>'
   html += chip.percent
   html += '<span class="led '+chip.suit2+'"></span>'
-  html += '</p>'
+  html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
   html += '<span class="pin"></span>'
@@ -541,7 +563,9 @@ Game.play = function () {
   for (x = 0; x < 4; x += 1) {
     html += '<div class="sockets">'
     for (y = 0; y < 4; y += 1) {
-      html += '<p id="socket'+x+''+y+'" class="socket"></p>'
+      html += '<div id="socket'+x+''+y+'" class="socket">'
+      html += makeSocketHTML()
+      html += '</div>'
     }
     html += '</div>'
   }
