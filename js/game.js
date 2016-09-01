@@ -141,8 +141,8 @@ sockets.render = function () {
 }
 
 sockets.pick = function (id) {
-  if (picked !== id && !(id in powered)) {
-    picked = id
+  if (!(id in powered)) {
+    picked = (picked !== id) ? id : null
     dirty |= 2
   }
 }
