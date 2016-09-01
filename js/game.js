@@ -87,6 +87,28 @@ function makeChipHTML (chip) {
   return html
 }
 
+function makeScoreHTML (value) {
+  var html = ''
+
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
+  html += '<div class="chip">'
+  html += value
+  html += '</div>'
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
+
+  return html
+}
+
 var Sockets = (function () {
 'use strict';
 
@@ -426,9 +448,12 @@ score.reset = function () {
 
 score.render = function () {
   var $ = window.jQuery
+    , total = 0
 
   if (dirty & 1) {
-    $('#score').html(bonus+'.'+((base < 10) ? ('0'+base) : base))
+    total = base + bonus
+    total = (total < 10) ? '0'+total : total
+    $('#score').html(makeScoreHTML(total))
   }
 
   dirty = 0

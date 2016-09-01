@@ -58,40 +58,28 @@ a, a:visited {
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   display: none;
 }
 h1 {
   font-weight: normal;
-  font-size: 2.4rem;
-  line-height: 4.8rem;
-  color: rgb(229, 232, 250);
-}
-.lcd {
-  font-size: 4.8rem;
-  line-height: 4.8rem;
-  font-family: monospace;
-  background: rgb(65, 62, 69);
-  color: rgb(207, 114, 131);
-  border: 2px solid rgb(50, 49, 55);
+  font-size: 1.2rem;
+  line-height: .1.2rem;
 }
 .sockets {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .socket {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 4.8rem;
   height: 4.8rem;
   border: 2px solid currentColor;
 }
 .socket + .socket {
-  margin-left: 1rem;
+  margin-left: 1.5rem;
 }
 .socket.powered {
   color: pink;
@@ -115,7 +103,6 @@ h1 {
 .pad {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 1rem;
   height: .7rem;
   background: #d4af36;
@@ -141,11 +128,27 @@ h1 {
   border: 2px solid currentColor;
   border-top: 0;
 }
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 #power {
   width: 4.8rem;
   height: 4.8rem;
   border: 2px solid rgb(50, 49, 55);
   border-radius: 2.4rem;
+}
+.lcd {
+  display: flex;
+  flex-direction: column;
+  font-size: 3.6rem;
+  line-height: 3.6rem;
+  font-family: monospace;
+  color: rgb(207, 114, 131);
+}
+.lcd > .pins {
+  flex-direction: row;
 }
 #chip0,
 #chip1,
@@ -158,11 +161,11 @@ h1 {
 .dip {
   display: flex;
   flex-direction: row;
+  color: rgb(156, 148, 121);
 }
 .pins {
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-around;
 }
 .pin {
@@ -177,7 +180,6 @@ h1 {
   align-items: center;
   padding: 0.3rem;
   background: rgb(82, 83, 85);
-  color: rgb(156, 148, 121);
   border: 0.3rem solid rgb(50,49,55);
   border-top-color: rgb(112,112,114);
   border-left-color: rgb(112,112,114);
