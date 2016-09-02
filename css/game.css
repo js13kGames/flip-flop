@@ -82,7 +82,7 @@ h1 {
   margin-left: 1.5rem;
 }
 .socket.powered {
-  color: pink;
+  color: rgb(207, 114, 131);
 }
 .socket.picked {
   color: gray;
@@ -145,7 +145,14 @@ h1 {
   font-size: 3.6rem;
   line-height: 3.6rem;
   font-family: monospace;
-  color: rgb(207, 114, 131);
+  color: #fee;
+  text-shadow:
+    0 0 .3rem rgba(255,0,84,.6)
+  , 0 0 .6rem rgba(255,0,84,.4)
+  , 0 0 .9rem rgba(255,0,84,.2)
+  , 0 0  1rem rgba(255,0,85,.1)
+  , 0.1rem 0.1rem 0.3rem rgb(51,51,51)
+  ;
 }
 .lcd > .pins {
   flex-direction: row;
@@ -191,14 +198,14 @@ h1 {
   border-radius: 50%;
   background-color: currentColor;
   box-shadow:
-    rgba(0,0,0,0.2) 0 -1px 4px 1px
-  , inset rgba(0,0,0,1) 0 -1px 6px
+    rgba(0,0,0,.2) 0 -1px 4px 1px
+  , inset rgba(0,0,0,1) 0 -1px 3px
   ;
 }
 .led.on {
   box-shadow:
     rgba(0,0,0,0.2) 0 -1px 4px 1px
-  , inset rgba(0,0,0,0.5) 0 -1px 6px
+  , inset rgba(0,0,0,.5) 0 -1px 6px
   , currentColor 0 0 6px
   ;
 }
