@@ -161,6 +161,17 @@ sockets.render = function () {
     Object.keys(chipped).forEach(function (id) {
       $('#'+id).html(makeChipHTML(chipped[id])).add('chipped')
     })
+
+
+    x = Object.keys(chipped).length
+    for (y = 8; y >= 1; y /= 2) {
+      if (x >= y) {
+        x -= y
+        $('#count-'+y).remove('off').add('on')
+      } else {
+        $('#count-'+y).remove('on').add('off')
+      }
+    }
   }
 
   if (dirty & 2) {
@@ -181,16 +192,6 @@ sockets.render = function () {
     })
   }
 
-  if (dirty & 1 || dirty & 4) {
-    x = Object.keys(chipped).length
-    for (y = Math.floor(x / 4); y > 0; y -= 1) {
-      $('#power-led-'+y).remove('off').remove('blink').add('on')
-    }
-    if (this.needsPower()) {
-      y = Math.floor(x / 4)
-      $('#power-led-'+y).add('blink')
-    }
-  }
 
   dirty = 0
 }

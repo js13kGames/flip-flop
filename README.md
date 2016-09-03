@@ -8,6 +8,7 @@ probability of a card changing when played is shown.
 
 The LEDs in the chips are based on [CSS LED Lights][leds] by F. Stephen
 Kirschbaum. The buttons are based on [Soft Button][button] by Sara Soueidan.
+The graph paper is a recolor of Lea Verou's [blueprint grid][paper] pattern.
 
 ## License ##
 
@@ -21,3 +22,4 @@ license as the Decktet.
 [cc]: https://creativecommons.org/licenses/by-nc-sa/3.0/
 [leds]: https://codepen.io/fskirschbaum/pen/MYJNaj "F. Stephen Kirschbaum (CodePen): CSS LED Lights"
 [button]: http://cssdeck.com/labs/lexr27qf "Sara Soueidan (CSS Deck): Soft Button"
+[paper]: http://lea.verou.me/css3patterns/#blueprint-grid "Lea Verou (CSS3 Patterns Gallery): Blueprint grid"
