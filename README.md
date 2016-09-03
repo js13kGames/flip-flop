@@ -7,7 +7,7 @@ flip-flop is based on the solitaire variant of Jack Neal's [Decktet][] game
 probability of a card changing when played is shown.
 
 The LEDs in the chips are based on [CSS LED Lights][leds] by F. Stephen
-Kirschbaum.
+Kirschbaum. The buttons are based on [Soft Button][button] by Sara Soueidan.
 
 ## License ##
 
@@ -20,3 +20,4 @@ license as the Decktet.
 [Jacynth]: http://wiki.decktet.com/game:jacynth
 [cc]: https://creativecommons.org/licenses/by-nc-sa/3.0/
 [leds]: https://codepen.io/fskirschbaum/pen/MYJNaj "F. Stephen Kirschbaum (CodePen): CSS LED Lights"
+[button]: http://cssdeck.com/labs/lexr27qf "Sara Soueidan (CSS Deck): Soft Button"

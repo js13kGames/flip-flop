@@ -111,6 +111,26 @@ function makeScoreHTML (value) {
   return html
 }
 
+function makeButtonHTML () {
+  var html = ''
+
+  html += '<div class="dip">'
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
+  html += '<div class="chip">'
+  html += '<span class="knob"></span>'
+  html += '</div>'
+  html += '<div class="pins">'
+  html += '<span class="pin"></span>'
+  html += '<span class="pin"></span>'
+  html += '</div>'
+  html += '</div>'
+
+  return html
+}
+
 var Sockets = (function () {
 'use strict';
 
@@ -604,6 +624,7 @@ Game.play = function () {
     }
   }
 
+  $('#power').html(makeButtonHTML())
   $('#power').touch(onPower, offPower)
   for (x = 0; x < 3; x += 1) {
     $('#chip'+x).touch(onChip, offChip)

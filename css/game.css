@@ -147,12 +147,43 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
-#power {
-  width: 4.8rem;
-  height: 4.8rem;
-  border: 2px solid rgb(50, 49, 55);
-  border-radius: 2.4rem;
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 4.8rem;
+  min-height: 4.8rem;
+}
+.button .pin {
+  width: .75rem;
+  height: .5rem;
+}
+.button .chip {
+  padding: .5rem;
+}
+.button .knob {
+  width: 2rem;
+  height: 2rem;
+  border-top: .1rem solid #fff;
+  border-radius: 50%;
+  background-color:#eeeeee;
+  background: linear-gradient(#edeae1, #cdc8b5);
+  box-shadow:
+    0 .1rem .1rem .15rem rgba(158, 158, 158, 0.4)
+  , 0 .15rem .25rem #b7b6b6
+  , 0 0 0 .1rem #bbb7ae
+  , inset 0 -.15rem .05rem .1rem rgba(186, 178, 165, 0.5)
+  , inset 0 .15rem .05rem .1rem rgba(246, 245, 241, 0.3)
+  ;
+  cursor: pointer;
+}
+.button .knob:active {
+  border-top:none;
+  border: .1rem solid #BAB7AE;
+  background-color:#EEEEEE;
+  box-shadow:  0 0 0 0 #BBB7AE;
 }
 .lcd {
   display: flex;
@@ -207,6 +238,7 @@ h1 {
 .chip {
   display: inline-flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 0.3rem;
   background: rgb(82, 83, 85);
