@@ -185,6 +185,33 @@ h1 {
   background-color:#EEEEEE;
   box-shadow:  0 0 0 0 #BBB7AE;
 }
+.levels {
+  display: flex;
+  flex-direction: column;
+  text-transform: lowercase;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+.levels > * {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.levels .indicators {
+  margin-bottom: .5rem;
+}
+.levels .indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.levels .indicator + .indicator {
+  margin-left: .5rem;
+}
+.levels .led {
+  margin-bottom: .5rem;
+  color: rgb(0,114,178);
+}
 .lcd {
   display: flex;
   flex-direction: column;
@@ -257,12 +284,42 @@ h1 {
   , inset rgba(0,0,0,1) 0 -1px 3px
   ;
 }
+.led.off {
+  box-shadow:
+    rgba(0,0,0,.2) 0 -1px 4px 1px
+  , inset rgba(0,0,0,1) 0 -1px 6px
+  ;
+}
 .led.on {
   box-shadow:
     rgba(0,0,0,0.2) 0 -1px 4px 1px
   , inset rgba(0,0,0,.5) 0 -1px 6px
   , currentColor 0 0 6px
   ;
+}
+.led.blink {
+  animation: blinky 1s infinite;
+}
+@keyframes blinky {
+to {
+  box-shadow:
+    rgba(0,0,0,.2) 0 -1px 4px 1px
+  , inset rgba(0,0,0,1) 0 -1px 6px
+  ;
+}
+50% {
+  box-shadow:
+    rgba(0,0,0,0.2) 0 -1px 4px 1px
+  , inset rgba(0,0,0,.5) 0 -1px 6px
+  , currentColor 0 0 6px
+  ;
+}
+to {
+  box-shadow:
+    rgba(0,0,0,.2) 0 -1px 4px 1px
+  , inset rgba(0,0,0,1) 0 -1px 6px
+  ;
+}
 }
 .moons {
   color: rgb(213, 94, 0);

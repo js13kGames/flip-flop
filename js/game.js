@@ -181,6 +181,17 @@ sockets.render = function () {
     })
   }
 
+  if (dirty & 1 || dirty & 4) {
+    x = Object.keys(chipped).length
+    for (y = Math.floor(x / 4); y > 0; y -= 1) {
+      $('#power-led-'+y).remove('off').remove('blink').add('on')
+    }
+    if (this.needsPower()) {
+      y = Math.floor(x / 4)
+      $('#power-led-'+y).add('blink')
+    }
+  }
+
   dirty = 0
 }
 
@@ -191,7 +202,7 @@ sockets.pick = function (id) {
   }
 }
 
-sockets.canInsert = function () {
+sockets.needsPower = function () {
   var chipped_count = Object.keys(chipped).length
     , powered_count = Object.keys(powered).length
     , needs_more_power = false
@@ -203,7 +214,11 @@ sockets.canInsert = function () {
     }
   }
 
-  return picked && !(picked in chipped) && !needs_more_power
+  return needs_more_power
+}
+
+sockets.canInsert = function () {
+  return picked && !(picked in chipped) && !this.needsPower()
 }
 
 sockets.canPower = function () {
