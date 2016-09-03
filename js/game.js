@@ -97,7 +97,9 @@ function makeScoreHTML (value) {
   html += '<span class="pin"></span>'
   html += '</div>'
   html += '<div class="chip">'
+  html += '<div class="inset">'
   html += value
+  html += '</div>'
   html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
