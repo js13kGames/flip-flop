@@ -512,9 +512,11 @@ function offSocket (target, e) {
 }
 
 function onPower (target, e) {
+  target.add('on')
 }
 
 function offPower (target, e) {
+  target.remove('on')
   if (Sockets.canPower()) {
     Sockets.power()
     Score.compute()

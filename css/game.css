@@ -179,7 +179,7 @@ h1 {
   ;
   cursor: pointer;
 }
-.button .knob:active {
+.button.on .knob {
   border-top:none;
   border: .1rem solid #BAB7AE;
   background-color:#EEEEEE;
