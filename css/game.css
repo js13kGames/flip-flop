@@ -105,7 +105,7 @@ h1 {
   margin-left: 1.5rem;
 }
 .socket.chipped.picked .chip,
-.socket.powered {
+.socket.powered .chip {
   box-shadow:
     0 0 .3rem rgba(255,0,84,.6)
   , 0 0 .6rem rgba(255,0,84,.4)
