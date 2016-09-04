@@ -192,6 +192,8 @@ sockets.render = function () {
     })
   }
 
+  if ((dirty & 1) || (dirty & 4)) {
+  }
 
   dirty = 0
 }
@@ -631,6 +633,12 @@ Game.play = function () {
       html += '<div id="socket'+x+''+y+'" class="socket">'
       html += makeSocketHTML()
       html += '</div>'
+      if (y < 3) {
+        html += '<div class="jumpers">'
+        html += '<span id="jumper1-'+x+''+y+'-'+x+''+(y+1)+'" class="jumper"></span>'
+        html += '<span id="jumper2-'+x+''+y+'-'+x+''+(y+1)+'" class="jumper"></span>'
+        html += '</div>'
+      }
     }
     html += '</div>'
   }

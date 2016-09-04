@@ -93,16 +93,6 @@ h1 {
   align-items: center;
   width: 4.8rem;
   height: 4.8rem;
-  box-shadow:
-    inset  .8rem 0 0 0 rgb(253,250,249)
-  , inset  .9rem 0 0 0 currentColor
-  , inset -.8rem 0 0 0 rgb(253,250,249)
-  , inset -.9rem 0 0 0 currentColor
-  , inset 0 0 0 .1rem currentColor
-  ;
-}
-.socket + .socket {
-  margin-left: 1.5rem;
 }
 .socket.chipped.picked .chip,
 .socket.powered .chip {
@@ -118,15 +108,21 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 3.6rem;
   height: 100%;
+  border: .1rem solid currentColor;
+}
+.pads:first-child {
+  margin-left: -.6rem;
+}
+.pads:last-child {
+  margin-right: -.6rem;
 }
 .pads {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0.3rem;
+  align-items: center;
 }
 .pad {
   display: flex;
@@ -158,6 +154,16 @@ h1 {
   border-bottom-right-radius: 0.75rem;
   border: .1rem solid currentColor;
   border-top: 0;
+  margin-top: -.1rem;
+}
+.jumpers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.jumper {
+  width: 1.5rem;
+  height: 0.5rem;
 }
 .controls {
   display: flex;
