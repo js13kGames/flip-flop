@@ -85,7 +85,6 @@ h1 {
 .sockets {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1.5rem;
 }
 .socket {
   display: flex;
@@ -159,11 +158,33 @@ h1 {
 .jumpers {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
 .jumper {
+  color: transparent;
+  background: currentColor;
+}
+.vjumpers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.vjumpers .jumper {
+  width: 0.5rem;
+  height: 1.5rem;
+}
+.hjumpers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 4.8rem;
+}
+.hjumpers .jumper {
   width: 1.5rem;
   height: 0.5rem;
+  box-shadow:
+     1rem 0 0 0 currentColor
+  , -1rem 0 0 0 currentColor
+  ;
 }
 .controls {
   display: flex;

@@ -155,7 +155,12 @@ sockets.render = function () {
   var $ = window.jQuery
     , x = 0
     , y = 0
+    , i = 0
+    , j = 0
     , html = ''
+    , chip = ''
+    , id = ''
+    , adjacent = []
 
   if (dirty & 1) {
     Object.keys(chipped).forEach(function (id) {
@@ -193,6 +198,35 @@ sockets.render = function () {
   }
 
   if ((dirty & 1) || (dirty & 4)) {
+    for (id in powered) {
+      chip = powered[id]
+
+      adjacent = collectAdjacent(chip.suit1, chip.id)
+      for (i = adjacent.length - 1; i > 0; i -= 1) {
+        for (j = i-1; j >= 0; j -= 1) {
+          x = adjacent[i];
+          y = adjacent[j];
+          if (x < y) {
+            $('#jumper1-'+x+'-'+y).add(chip.suit1)
+          } else {
+            $('#jumper1-'+y+'-'+x).add(chip.suit1)
+          }
+        }
+      }
+
+      adjacent = collectAdjacent(chip.suit2, chip.id)
+      for (i = adjacent.length - 1; i > 0; i -= 1) {
+        for (j = i-1; j >= 0; j -= 1) {
+          x = adjacent[i]
+          y = adjacent[j]
+          if (x < y) {
+            $('#jumper2-'+x+'-'+y).add(chip.suit2)
+          } else {
+            $('#jumper2-'+y+'-'+x).add(chip.suit2)
+          }
+        }
+      }
+    }
   }
 
   dirty = 0
@@ -630,13 +664,23 @@ Game.play = function () {
   for (x = 0; x < 4; x += 1) {
     html += '<div class="sockets">'
     for (y = 0; y < 4; y += 1) {
+      if (x < 3) {
+        html += '<div class="jumpers">'
+      }
       html += '<div id="socket'+x+''+y+'" class="socket">'
       html += makeSocketHTML()
       html += '</div>'
+      if (x < 3) {
+        html += '<div class="vjumpers">'
+        html += '<span id="jumper1-socket'+x+''+y+'-socket'+(x+1)+''+y+'" class="jumper"></span>'
+        html += '<span id="jumper2-socket'+x+''+y+'-socket'+(x+1)+''+y+'" class="jumper"></span>'
+        html += '</div>'
+        html += '</div>'
+      }
       if (y < 3) {
-        html += '<div class="jumpers">'
-        html += '<span id="jumper1-'+x+''+y+'-'+x+''+(y+1)+'" class="jumper"></span>'
-        html += '<span id="jumper2-'+x+''+y+'-'+x+''+(y+1)+'" class="jumper"></span>'
+        html += '<div class="hjumpers">'
+        html += '<span id="jumper1-socket'+x+''+y+'-socket'+x+''+(y+1)+'" class="jumper"></span>'
+        html += '<span id="jumper2-socket'+x+''+y+'-socket'+x+''+(y+1)+'" class="jumper"></span>'
         html += '</div>'
       }
     }
