@@ -288,7 +288,7 @@ sockets.canInsert = function () {
 }
 
 sockets.canPower = function () {
-  return picked && (picked in chipped) && !(picked in powered)
+  return picked && (picked in chipped) && !(picked in powered) && Object.keys(powered).length < 4
 }
 
 sockets.insert = function (chip, glitch) {
