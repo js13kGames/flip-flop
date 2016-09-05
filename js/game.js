@@ -157,7 +157,10 @@ sockets.render = function () {
     , y = 0
     , i = 0
     , j = 0
+    , temp = null
     , html = ''
+    , jumper1 = null
+    , jumper2 = null
     , chip = ''
     , id = ''
     , adjacent = []
@@ -204,12 +207,25 @@ sockets.render = function () {
       adjacent = collectAdjacent(chip.suit1, chip.id)
       for (i = adjacent.length - 1; i > 0; i -= 1) {
         for (j = i-1; j >= 0; j -= 1) {
-          x = adjacent[i];
-          y = adjacent[j];
-          if (x < y) {
-            $('#jumper1-'+x+'-'+y).add(chip.suit1)
-          } else {
-            $('#jumper1-'+y+'-'+x).add(chip.suit1)
+          x = adjacent[i]
+          y = adjacent[j]
+
+          if (x > y) {
+            temp = y; y = x; x = temp
+          }
+
+          jumper1 = $('#jumper1-'+x+'-'+y)
+          jumper2 = $('#jumper2-'+x+'-'+y)
+
+          if (chipped[x].suit1 === chipped[x].suit2 || chipped[y].suit1 === chipped[y].suit2) {
+            jumper1.add(chip.suit1).add('on')
+            jumper2.add(chip.suit1).add('on')
+          } else if (!jumper1.has(chip.suit1) && !jumper2.has(chip.suit1)) {
+            if (!jumper1.has('on')) {
+              jumper1.add(chip.suit1).add('on')
+            } else if (!jumper2.has('on')) {
+              jumper2.add(chip.suit1).add('on')
+            }
           }
         }
       }
@@ -219,10 +235,23 @@ sockets.render = function () {
         for (j = i-1; j >= 0; j -= 1) {
           x = adjacent[i]
           y = adjacent[j]
-          if (x < y) {
-            $('#jumper2-'+x+'-'+y).add(chip.suit2)
-          } else {
-            $('#jumper2-'+y+'-'+x).add(chip.suit2)
+
+          if (x > y) {
+            temp = y; y = x; x = temp
+          }
+
+          jumper1 = $('#jumper1-'+x+'-'+y)
+          jumper2 = $('#jumper2-'+x+'-'+y)
+
+          if (chipped[x].suit1 === chipped[x].suit2 || chipped[y].suit1 === chipped[y].suit2) {
+            jumper1.add(chip.suit2).add('on')
+            jumper2.add(chip.suit2).add('on')
+          } else if (!jumper1.has(chip.suit2) && !jumper2.has(chip.suit2)) {
+            if (!jumper2.has('on')) {
+              jumper2.add(chip.suit2).add('on')
+            } else if (!jumper1.has('on')) {
+              jumper1.add(chip.suit2).add('on')
+            }
           }
         }
       }

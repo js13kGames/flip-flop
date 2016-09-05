@@ -95,12 +95,13 @@ h1 {
 }
 .socket.chipped.picked .chip,
 .socket.powered .chip {
-  box-shadow:
+  color: #fee;
+  text-shadow:
     0 0 .3rem rgba(255,0,84,.6)
   , 0 0 .6rem rgba(255,0,84,.4)
   , 0 0 .9rem rgba(255,0,84,.2)
   , 0 0  1rem rgba(255,0,85,.1)
-  , 0.2rem 0.2rem 0.5rem rgba(0,0,0,.3)
+  , 0.1rem 0.1rem 0.3rem rgb(51,51,51)
   ;
 }
 .trace {

@@ -55,6 +55,13 @@ Fn.prototype.remove = function (klass) {
   return this
 }
 
+Fn.prototype.has = function (klass) {
+  if (this.element) {
+    return this.element.classList.contains(klass)
+  }
+  return false
+}
+
 Fn.prototype.touch = function (start, end) {
   var self = this
 
