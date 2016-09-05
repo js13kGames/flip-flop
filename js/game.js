@@ -174,6 +174,11 @@ sockets.reset = function () {
     }
   }
 
+  // Turn off the chip counter
+  for (i = 8; i >= 1; i /= 2) {
+    $('#count-'+i).remove('on').add('off')
+  }
+
   chipped = {}
   dirty |= 1
 
@@ -423,7 +428,6 @@ var Chips = (function () {
 var chips = {}
   , stack = []
   , grip = []
-  , heap = []
   , dirty = 0
   , picked = null
 
