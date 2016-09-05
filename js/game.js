@@ -428,7 +428,8 @@ var chips = {}
   , picked = null
 
 chips.reset = function () {
-  var i = 0
+  var $ = window.jQuery
+    , i = 0
     , j = 0
     , suit = null
     , suits = ['moons', 'suns', 'waves', 'leaves', 'wyrms', 'knots']
@@ -484,6 +485,9 @@ chips.reset = function () {
 
   this.compute()
 
+  // Show off the tray of chips
+  $('#tray').remove('hidden')
+
   picked = null
   dirty |= 2
 }
@@ -533,20 +537,8 @@ chips.render = function () {
     }
 
     // Hide the chips when all the sockets are filled
-    if (grip.length <= 1) {
-      for(i = 0; i < 3; i += 1) {
-        $('#chip'+i).add('hidden')
-      }
-    }
-  }
-
-  if (dirty & 2) {
-    for (i = 0; i < 3; i += 1) {
-      if ('chip'+i !== picked) {
-        $('#chip'+i).remove('picked')
-      } else {
-        $('#chip'+i).add('picked')
-      }
+    if (stack.length <= 1) {
+      $('#tray').add('hidden')
     }
   }
 
@@ -556,7 +548,6 @@ chips.render = function () {
 chips.pick = function (id) {
   if (picked !== id) {
     picked = id
-    dirty |= 2
   }
 }
 
@@ -693,7 +684,8 @@ function resetGame () {
 function onReset (target, e) {
   target.add('on')
   if (Sockets.canReset()) {
-    resetGame()
+    newColor()
+    window.location.hash = color
   }
 }
 
