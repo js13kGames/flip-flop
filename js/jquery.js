@@ -62,6 +62,13 @@ Fn.prototype.has = function (klass) {
   return false
 }
 
+Fn.prototype.reset = function (klass) {
+  if (this.element) {
+    this.element.className = klass
+  }
+  return this
+}
+
 Fn.prototype.touch = function (start, end) {
   var self = this
 

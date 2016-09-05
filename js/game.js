@@ -141,6 +141,39 @@ var sockets = {}
   , picked = null
 
 sockets.reset = function () {
+  var $ = window.jQuery
+    , i = 0
+    , j = 0
+    , x = ''
+    , y = ''
+    , temp = ''
+    , id = null
+    , ids = []
+
+  // Remove chips from any sockets
+  for (i = 0; i < 4; i += 1) {
+    for (j = 0; j < 4; j += 1) {
+      id = 'socket'+i+''+j
+      ids.push(id)
+      $('#'+id).html(makeSocketHTML()).reset('socket')
+    }
+  }
+
+  // Turn off all the jumpers
+  for (i = 0; i < ids.length; i += 1) {
+    for (j = 0; j < ids.length; j += 1) {
+      x = ids[i]
+      y = ids[j]
+
+      if (x > y) {
+        temp = y; y = x; x = temp
+      }
+
+      $('#jumper1-'+x+'-'+y).reset('jumper')
+      $('#jumper2-'+x+'-'+y).reset('jumper')
+    }
+  }
+
   chipped = {}
   dirty |= 1
 
@@ -169,7 +202,6 @@ sockets.render = function () {
     Object.keys(chipped).forEach(function (id) {
       $('#'+id).html(makeChipHTML(chipped[id])).add('chipped')
     })
-
 
     x = Object.keys(chipped).length
     for (y = 8; y >= 1; y /= 2) {
@@ -289,6 +321,10 @@ sockets.canInsert = function () {
 
 sockets.canPower = function () {
   return picked && (picked in chipped) && !(picked in powered) && Object.keys(powered).length < 4
+}
+
+sockets.canReset = function () {
+  return Object.keys(chipped).length >= 16 && Object.keys(powered).length >= 4
 }
 
 sockets.insert = function (chip, glitch) {
@@ -495,6 +531,13 @@ chips.render = function () {
     for (i = 0; i < 3; i += 1) {
       $('#chip'+i).html(makeChipHTML(grip[i]))
     }
+
+    // Hide the chips when all the sockets are filled
+    if (grip.length <= 1) {
+      for(i = 0; i < 3; i += 1) {
+        $('#chip'+i).add('hidden')
+      }
+    }
   }
 
   if (dirty & 2) {
@@ -647,6 +690,17 @@ function resetGame () {
   Score.reset()
 }
 
+function onReset (target, e) {
+  target.add('on')
+  if (Sockets.canReset()) {
+    resetGame()
+  }
+}
+
+function offReset (target, e) {
+  target.remove('on')
+}
+
 function onHashChange () {
   var hash = window.location.hash.substring(1)
   if (/^[0-9A-F]{6}$/i.test(hash)) {
@@ -725,6 +779,10 @@ Game.play = function () {
 
   $('#power').html(makeButtonHTML())
   $('#power').touch(onPower, offPower)
+
+  $('#reset').html(makeButtonHTML())
+  $('#reset').touch(onReset, offReset)
+
   for (x = 0; x < 3; x += 1) {
     $('#chip'+x).touch(onChip, offChip)
   }

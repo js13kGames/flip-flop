@@ -71,17 +71,6 @@ a, a:visited {
   flex-direction: column;
   justify-content: space-around;
 }
-.header {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 0.5rem;
-  display: none;
-}
-h1 {
-  font-weight: normal;
-  font-size: 1.2rem;
-  line-height: .1.2rem;
-}
 .sockets {
   display: flex;
   flex-direction: row;
@@ -384,6 +373,9 @@ to {
   -ms-user-select: none;
   -khtml-user-select: none;
   -webkit-touch-callout: none;
+}
+.hidden {
+  display: none;
 }
 /* Notes */
 .note {
