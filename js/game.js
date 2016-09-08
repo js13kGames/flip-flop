@@ -111,7 +111,7 @@ function makeScoreHTML (value) {
   return html
 }
 
-function makeButtonHTML () {
+function makeButtonHTML (name) {
   var html = ''
 
   html += '<div class="dip">'
@@ -120,12 +120,17 @@ function makeButtonHTML () {
   html += '<span class="pin"></span>'
   html += '</div>'
   html += '<div class="chip">'
-  html += '<span class="knob"></span>'
+  html += '<div class="knob">'
+  html += '<span class="dimple"></san>'
+  html += '</div>'
   html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
   html += '<span class="pin"></span>'
   html += '</div>'
+  html += '</div>'
+  html += '<div class="caption">'
+  html += name
   html += '</div>'
 
   return html
@@ -773,10 +778,10 @@ Game.play = function () {
     }
   }
 
-  $('#power').html(makeButtonHTML())
+  $('#power').html(makeButtonHTML('Power'))
   $('#power').touch(onPower, offPower)
 
-  $('#reset').html(makeButtonHTML())
+  $('#reset').html(makeButtonHTML('Reset'))
   $('#reset').touch(onReset, offReset)
 
   for (x = 0; x < 3; x += 1) {

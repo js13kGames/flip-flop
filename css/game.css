@@ -119,7 +119,7 @@ a, a:visited {
   align-items: center;
   width: 1.2rem;
   height: .8rem;
-  background: #d4af36;
+  background: silver;
   border-radius: 50%;
 }
 .pad:before {
@@ -133,7 +133,7 @@ a, a:visited {
   ;
 }
 .picked .pad {
-  background: silver;
+  background: #d4af36;
 }
 .cutout {
   width: 1.5rem;
@@ -194,6 +194,7 @@ a, a:visited {
 }
 .button {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-width: 4.8rem;
@@ -207,6 +208,9 @@ a, a:visited {
   padding: .5rem;
 }
 .button .knob {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 2rem;
   height: 2rem;
   border-top: .1rem solid #fff;
@@ -228,12 +232,33 @@ a, a:visited {
   background-color:#EEEEEE;
   box-shadow:  0 0 0 0 #BBB7AE;
 }
+.button .caption {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  text-transform: lowercase;
+  margin-top: .5rem;
+}
+.button .dimple {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 .1rem .1rem .1rem #7e7e7e
+  , 0 .1rem .1rem #fff
+  ;
+}
+.counters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .indicators {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .indicators .led {
   color: rgb(0,114,178);
