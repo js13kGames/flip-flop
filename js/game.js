@@ -126,8 +126,8 @@ function makeButtonHTML (name) {
   html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
-  html += '<span class="pin"></span>'
   html += '</div>'
+  html += '<span id="'+name+'-led" class="led off"></span>'
   html += '</div>'
   html += '<div class="caption">'
   html += name
@@ -181,8 +181,11 @@ sockets.reset = function () {
 
   // Turn off the chip counter
   for (i = 8; i >= 1; i /= 2) {
-    $('#count-'+i).remove('on').add('off')
+    $('#count-'+i).reset('led off')
   }
+
+  // Turn off the power LED
+  $('#power-led').reset('led off')
 
   chipped = {}
   dirty |= 1
@@ -243,6 +246,12 @@ sockets.render = function () {
   }
 
   if ((dirty & 1) || (dirty & 4)) {
+    if (this.needsPower()) {
+      $('#power-led').remove('off').add('on').add('blink')
+    } else {
+      $('#power-led').remove('on').remove('blink').add('off')
+    }
+
     for (id in powered) {
       chip = powered[id]
 
@@ -778,10 +787,10 @@ Game.play = function () {
     }
   }
 
-  $('#power').html(makeButtonHTML('Power'))
+  $('#power').html(makeButtonHTML('power'))
   $('#power').touch(onPower, offPower)
 
-  $('#reset').html(makeButtonHTML('Reset'))
+  $('#reset').html(makeButtonHTML('reset'))
   $('#reset').touch(onReset, offReset)
 
   for (x = 0; x < 3; x += 1) {

@@ -201,7 +201,7 @@ a, a:visited {
   min-height: 4.8rem;
 }
 .button .pin {
-  width: .75rem;
+  width: .7rem;
   height: .5rem;
 }
 .button .chip {
@@ -237,6 +237,7 @@ a, a:visited {
   line-height: 1.2rem;
   text-transform: lowercase;
   margin-top: .5rem;
+  margin-right: .7rem;
 }
 .button .dimple {
   width: .5rem;
@@ -246,6 +247,10 @@ a, a:visited {
     inset 0 .1rem .1rem .1rem #7e7e7e
   , 0 .1rem .1rem #fff
   ;
+}
+.button .led {
+  display: inline-block;
+  color: rgb(255,0,84);
 }
 .counters {
   display: flex;
@@ -308,8 +313,8 @@ a, a:visited {
   justify-content: space-around;
 }
 .pin {
-  width: 0.5rem;
-  height: 0.75rem;
+  width: .5rem;
+  height: .7rem;
   background: silver;
   background: linear-gradient(-45deg, rgb(160,160,160) 0%, rgb(232,232,232) 56%);
   box-shadow: 0.1rem 0.1rem 0.3rem rgb(51,51,51);
