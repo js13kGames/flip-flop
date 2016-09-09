@@ -127,7 +127,7 @@ function makeButtonHTML (name) {
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
   html += '</div>'
-  html += '<span id="'+name+'-led" class="led off"></span>'
+  html += '<span id="'+name+'-led" class="led on"></span>'
   html += '</div>'
   html += '<div class="caption">'
   html += name
@@ -184,8 +184,8 @@ sockets.reset = function () {
     $('#count-'+i).reset('led off')
   }
 
-  // Turn off the power LED
-  $('#power-led').reset('led off')
+  // Turn on the power LED
+  $('#power-led').reset('led on')
 
   chipped = {}
   dirty |= 1
@@ -247,9 +247,9 @@ sockets.render = function () {
 
   if ((dirty & 1) || (dirty & 4)) {
     if (this.needsPower()) {
-      $('#power-led').remove('off').add('on').add('blink')
+      $('#power-led').add('blink')
     } else {
-      $('#power-led').remove('on').remove('blink').add('off')
+      $('#power-led').remove('blink')
     }
 
     for (id in powered) {
