@@ -624,10 +624,9 @@ score.reset = function () {
 
 score.render = function () {
   var $ = window.jQuery
-    , total = 0
+    , total = this.last()
 
   if (dirty & 1) {
-    total = base + bonus
     total = (total < 10) ? '0'+total : total
     $('#score').html(makeScoreHTML(total))
   }
@@ -648,6 +647,10 @@ score.compute = function () {
     bonus = new_bonus
     dirty |= 1
   }
+}
+
+score.last = function () {
+  return base + bonus
 }
 
 return score
@@ -793,6 +796,15 @@ function offReset (target, e) {
   target.remove('on')
 }
 
+function onTweet (target, e) {
+  var twitter = 'https://twitter.com/intent/tweet'
+    , text = encodeURIComponent('I glitched '+Score.last()+ " chips in flip-flop for @js13kGames. How'd you do?")
+    , url = encodeURIComponent(window.location.href)
+
+  // Note to self: Adblock Plus breaks this link!
+  target.unwrap().href = twitter + '?text='+text + '&url='+url
+}
+
 function onHashChange () {
   var hash = window.location.hash.substring(1)
   if (/^[0-9A-F]{6}$/i.test(hash)) {
@@ -874,6 +886,8 @@ Game.play = function () {
 
   $('#reset').html(makeButtonHTML('reset'))
   $('#reset').touch(onReset, offReset)
+
+  $('#tweetGame').touch(onTweet)
 
   for (x = 0; x < 3; x += 1) {
     $('#chip'+x).touch(onChip, offChip)
