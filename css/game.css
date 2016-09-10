@@ -165,7 +165,7 @@ a, a:visited {
   justify-content: space-around;
 }
 .vjumpers .jumper {
-  width: .1rem;
+  width: .2rem;
   height: 1.5rem;
   box-shadow:
     0 0 .3rem 0 currentColor
@@ -179,7 +179,7 @@ a, a:visited {
 }
 .hjumpers .jumper {
   width: 1.5rem;
-  height: .1rem;
+  height: .2rem;
   box-shadow:
      .8rem 0  0    0 currentColor
   ,  .8rem 0 .3rem 0 currentColor
