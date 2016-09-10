@@ -187,6 +187,9 @@ sockets.reset = function () {
   // Turn on the power LED
   $('#power-led').reset('led on')
 
+  // Hide the finals
+  $('#finals').reset('unselectable tray hidden')
+
   chipped = {}
   dirty |= 1
 
@@ -243,6 +246,11 @@ sockets.render = function () {
     Object.keys(powered).forEach(function (id) {
       $('#'+id).add('powered')
     })
+
+    // Show the finals once the last chip is powered
+    if (Object.keys(powered).length >= 4) {
+      $('#finals').remove('hidden')
+    }
   }
 
   if ((dirty & 1) || (dirty & 4)) {
@@ -517,7 +525,7 @@ chips.reset = function () {
   this.compute()
 
   // Show off the tray of chips
-  $('#tray').remove('hidden')
+  $('#tray').reset('unselectable tray')
 
   picked = null
   dirty |= 2
