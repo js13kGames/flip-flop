@@ -632,6 +632,62 @@ score.compute = function () {
 return score
 }())
 
+var Reset = (function () {
+'use strict';
+
+var reset = {}
+  , $ = window.jQuery
+  , dirty = 0
+  , start = 0
+  , restartable = false
+
+reset.reset = function () {
+  $('#reset').reset('button off')
+  $('#reset-led').reset('led off')
+
+  start = 0
+  restartable = false
+
+  dirty = 0
+}
+
+// If the button's held for more than N seconds, make the LED blink.
+reset.render = function () {
+  if (dirty & 1) {
+    if (start > 0) {
+      $('#reset-led').remove('off').remove('blink').add('on')
+      if (Date.now() - start >= 1500) {
+        $('#reset-led').remove('off').add('on').add('blink')
+        restartable = true
+        dirty = 0
+      }
+      // Don't clear dirty flag. We want to check elapsed time on the next pass.
+    } else {
+      $('#reset-led').remove('on').remove('blink').add('off')
+      dirty = 0
+    }
+  }
+}
+
+reset.start = function () {
+  start = Date.now()
+  restartable = false
+  dirty |= 1
+}
+
+reset.stop = function () {
+  start = 0
+  restartable = false
+  dirty |= 1
+}
+
+reset.canReset = function () {
+  return restartable
+}
+
+return reset
+}())
+
 ;(function (Game) {
 'use strict';
 
@@ -678,6 +734,7 @@ function render () {
   Sockets.render()
   Chips.render()
   Score.render()
+  Reset.render()
 }
 
 // Pick a random color out of the RGB color space.
@@ -697,17 +754,21 @@ function resetGame () {
   Sockets.reset()
   Chips.reset()
   Score.reset()
+  Reset.reset()
 }
 
 function onReset (target, e) {
+  Reset.start()
   target.add('on')
-  if (Sockets.canReset()) {
-    newColor()
-    window.location.hash = color
-  }
 }
 
 function offReset (target, e) {
+  if (Reset.canReset()) {
+    newColor()
+    window.location.hash = color
+  }
+
+  Reset.stop()
   target.remove('on')
 }
 
