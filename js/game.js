@@ -246,11 +246,6 @@ sockets.render = function () {
     Object.keys(powered).forEach(function (id) {
       $('#'+id).add('powered')
     })
-
-    // Show the finals once the last chip is powered
-    if (Object.keys(powered).length >= 4) {
-      $('#finals').remove('hidden')
-    }
   }
 
   if ((dirty & 1) || (dirty & 4)) {
@@ -314,6 +309,11 @@ sockets.render = function () {
           }
         }
       }
+    }
+
+    // Show the finals once all chips are powered and the last chip is played
+    if (Object.keys(powered).length >= 4 && Object.keys(chipped).length >= 16) {
+      $('#finals').remove('hidden')
     }
   }
 
