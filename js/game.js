@@ -71,7 +71,7 @@ function makeChipHTML (chip) {
   html += '<span class="pin"></span>'
   html += '<span class="pin"></span>'
   html += '</div>'
-  html += '<div class="chip">'
+  html += '<div class="chip'+(chip.glitched ? ' glitched' : '')+'">'
   html += '<span class="led '+chip.suit1+'"></span>'
   html += chip.percent
   html += '<span class="led '+chip.suit2+'"></span>'
@@ -353,6 +353,7 @@ sockets.insert = function (chip, glitch) {
   {
     glitch.percent = chip.percent
     chip = glitch
+    chip.glitched = true
   }
 
   chipped[picked] = chip
@@ -430,7 +431,19 @@ sockets.base = function () {
 }
 
 sockets.bonus = function () {
-  return 0
+  var id = null
+    , chip = null
+    , score = 0
+
+  for (id in chipped) {
+    chip = chipped[id]
+
+    if (chip.glitched) {
+      score += 1
+    }
+  }
+
+  return score
 }
 
 return sockets
