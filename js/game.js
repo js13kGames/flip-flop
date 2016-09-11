@@ -128,9 +128,9 @@ function makeChipHTML (chip) {
   html += '<span class="pin"></span>'
   html += '</div>'
   html += '<div class="chip'+(chip.glitched ? ' glitched' : '')+'">'
-  html += '<span class="led '+(Power.cbm() ? ' cbm ' : '')+chip.suit1+'"></span>'
-  html += chip.percent
-  html += '<span class="led '+(Power.cbm() ? ' cbm ' : '')+chip.suit2+'"></span>'
+  html += '<span class="led '+(Power.cbm() ? 'cbm ' : '')+chip.suit1+'"></span>'
+  html += (chip.glitched ? 'x.x' : chip.percent)
+  html += '<span class="led '+(Power.cbm() ? 'cbm ' : '')+chip.suit2+'"></span>'
   html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
