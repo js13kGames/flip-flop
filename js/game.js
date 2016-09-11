@@ -422,6 +422,7 @@ sockets.insert = function (chip, glitch) {
 
   chipped[picked] = chip
   chipped[picked].id = picked
+  chipped[picked].order = Object.keys(chipped).length
   dirty |= 1
 
   this.pick(null)
@@ -508,6 +509,46 @@ sockets.bonus = function () {
   }
 
   return score
+}
+
+sockets.multiplier = function () {
+  var id = null
+    , chip = null
+    , starters = []
+
+  // Figure out what the starting four chips are...
+  for (id in chipped) {
+    chip = chipped[id]
+
+    if (chip.order <= 4) {
+      starters.push(id)
+    }
+  }
+
+  // Starting in the four corners gets 2x points
+  if (starters.indexOf('socket00') >= 0 &&
+      starters.indexOf('socket03') >= 0 &&
+      starters.indexOf('socket30') >= 0 &&
+      starters.indexOf('socket33') >= 0)
+  {
+    return 2;
+  }
+
+  // Starting on either diagonal gets 1.5x points
+  if ((starters.indexOf('socket00') >= 0 &&
+       starters.indexOf('socket11') >= 0 &&
+       starters.indexOf('socket22') >= 0 &&
+       starters.indexOf('socket33') >= 0) ||
+      (starters.indexOf('socket03') >= 0 &&
+       starters.indexOf('socket12') >= 0 &&
+       starters.indexOf('socket21') >= 0 &&
+       starters.indexOf('socket30') >= 0))
+  {
+    return 1.5;
+  }
+
+
+  return 1;
 }
 
 sockets.cbm = function () {
@@ -678,11 +719,13 @@ var Score = (function () {
 var score = {}
   , base = 0
   , bonus = 0
+  , multiplier = 1
   , dirty = 0
 
 score.reset = function () {
   base = 0
   bonus = 0
+  multiplier = 1
   dirty |= 1
 }
 
@@ -701,6 +744,7 @@ score.render = function () {
 score.compute = function () {
   var new_base = Sockets.base()
     , new_bonus = Sockets.bonus()
+    , new_multiplier = Sockets.multiplier()
 
   if (base !== new_base) {
     base = new_base
@@ -711,10 +755,15 @@ score.compute = function () {
     bonus = new_bonus
     dirty |= 1
   }
+
+  if (multiplier !== new_multiplier) {
+    multiplier = new_multiplier
+    dirty |= 1
+  }
 }
 
 score.last = function () {
-  return base + bonus
+  return Math.ceil((base + bonus) * multiplier)
 }
 
 return score

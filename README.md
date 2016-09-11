@@ -2,8 +2,9 @@
 
 flip-flop is a glitchy game about chip installation and sucking the last
 possible volt out of a PCB. Built for an iPhone, it should run in most
-browsers. High scores are sharable. There are blinky lights when you win,
-tributes when you lose, and the difficulty is as hard as you make it. Have fun.
+browsers. High scores are sharable and accessibility is baked in. There
+are blinky lights when you win, tributes when you lose, and the difficulty
+is as hard as you make it. Have fun.
 
 Made on a Mac for the [2016 js13kGames competition][js13k].
 
@@ -13,8 +14,7 @@ flip-flop has the following bits of awesomeness:
 
 * play on any device with sweet scaling graphics
 * get social bragging rights with tweetable high scores
-* crank up the competition with dynamic difficulty levels
-* start glitching fast with an in-line tutorial
+* choose your own difficulty with dynamic starting layouts
 
 ## Credits ##
 
@@ -41,10 +41,17 @@ recolor of [Paul Salentiny's honeycomb pattern][hex]. The LEDs are based on
 same neon that [Dudley Storey uses for his bar sign][neon]. The chips are my own
 design.
 
+### Colors ###
+
+Colors for the LEDs where chosen from [Martin Krzywinski's notes on palettes for
+color blindness][cbm]. You can switch them to letters by holding down the power
+button until the LED blinks, then letting go.
+
 ### Help ###
 
 [Sarah Mitchell][] provided useful feedback on color choices and pushed me to
-make the reset button work all the time.
+make the reset button work all the time. She's the reason there's a delightful
+ghost chip when you select an empty spot on the circuit board.
 
 ## Compatibility ##
 
@@ -73,3 +80,4 @@ license as the Decktet.
 [notes]: http://code.tutsplus.com/tutorials/create-a-sticky-note-effect-in-5-easy-steps-with-css3-and-html5--net-13934 "Chris Heilmann (Tuts+): Create a Sticky Note Effect in 5 Easy Steps with CSS3 and HTML5"
 [neon]: http://thenewcode.com/610/Create-A-Flickering-Neon-Bar-Sign-With-CSS "Dudley Storey (thenewcode.com): Create a Flickering Neon Bar Sign with CSS"
 [Sarah Mitchell]: https://github.com/thesmitchell "Sarah Mitchell (GitHub): TheSmitchell"
+[cbm]: http://mkweb.bcgsc.ca/colorblind/ "Martin Krzywinski (Genome Sciences Center): Color Palettes for Color Blindness"
