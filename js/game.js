@@ -369,7 +369,7 @@ sockets.render = function () {
 }
 
 sockets.pick = function (id) {
-  if (!(id in powered)) {
+  if (!(id in chipped)) {
     picked = (picked !== id) ? id : null
     dirty |= 2
   }
