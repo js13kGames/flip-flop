@@ -1,10 +1,9 @@
 # flip-flop #
 
-flip-flop is a glitchy game about chip installation and sucking the last
-possible volt out of a PCB. Built for an iPhone, it should run in most
-browsers. High scores are sharable and accessibility is baked in. There
-are blinky lights when you win, tributes when you lose, and the difficulty
-is as hard as you make it. Have fun.
+flip-flop is a press your luck game about territory control on a PCB. Built
+for an iPhone, it should run in most browsers. High scores are sharable and
+accessibility is baked in. Things glow when you win, cross out when you lose,
+and the difficulty is as hard as you make it. Have fun.
 
 Made on a Mac for the [2016 js13kGames competition][js13k].
 
@@ -22,7 +21,7 @@ flip-flop is based on the solitaire variant of P.D. Magnus and Jack Neal's
 [Decktet][] game [Jacynth][]. Chips function as cards, with colored LEDs for
 the suits. The starting layout is left up to the player and the probability of
 a chip changing when played is shown. Every fourth chip is automatically powered,
-adding tension and removing a decision point.
+removing a decision point and adding tension to the original rules.
 
 ### Technology ###
 
