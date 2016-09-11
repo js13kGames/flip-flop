@@ -21,7 +21,8 @@ flip-flop has the following bits of awesomeness:
 flip-flop is based on the solitaire variant of P.D. Magnus and Jack Neal's
 [Decktet][] game [Jacynth][]. Chips function as cards, with colored LEDs for
 the suits. The starting layout is left up to the player and the probability of
-a chip changing when played is shown.
+a chip changing when played is shown. Every fourth chip is automatically powered,
+adding tension and removing a decision point.
 
 ### Technology ###
 

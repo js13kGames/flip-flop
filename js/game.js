@@ -45,15 +45,16 @@ var Power = (function () {
 var power = {}
   , $ = window.jQuery
   , mode = false
-  , klass = 'led on'
+  , klass = 'led off'
   , start = 0
   , dirty = 0
 
 power.reset = function () {
   $('#power').reset('button off')
-  $('#power-led').reset('led on')
+  $('#power-led').reset('led off')
 
   mode = false
+  klass = 'led off'
   start = 0
 
   dirty = 0
@@ -240,9 +241,6 @@ sockets.reset = function () {
     $('#count-'+i).reset('led off')
   }
 
-  // Turn on the power LED
-  $('#power-led').reset('led on')
-
   // Hide the finals
   $('#finals').reset('unselectable tray hidden')
 
@@ -305,12 +303,6 @@ sockets.render = function () {
   }
 
   if ((dirty & 1) || (dirty & 4)) {
-    if (this.needsPower()) {
-      $('#power-led').add('blink')
-    } else {
-      $('#power-led').remove('blink')
-    }
-
     for (id in powered) {
       chip = powered[id]
 
@@ -399,7 +391,7 @@ sockets.needsPower = function () {
 }
 
 sockets.canInsert = function () {
-  return picked && !(picked in chipped) && !this.needsPower()
+  return picked && !(picked in chipped)
 }
 
 sockets.canPower = function () {
@@ -424,6 +416,11 @@ sockets.insert = function (chip, glitch) {
   chipped[picked].id = picked
   chipped[picked].order = Object.keys(chipped).length
   dirty |= 1
+
+  // Every fourth chip is automatically powered
+  if (chipped[picked].order % 4 === 0) {
+    this.power()
+  }
 
   this.pick(null)
 }
@@ -845,11 +842,6 @@ function onPower (target, e) {
 function offPower (target, e) {
   target.remove('on')
   Power.stop()
-
-  if (Sockets.canPower()) {
-    Sockets.power()
-    Score.compute()
-  }
 
   // Rrerender chips and sockets in case color blind mode changed.
   Chips.cbm()
