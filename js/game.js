@@ -963,7 +963,7 @@ Game.play = function () {
     , y = 0
 
   for (x = 0; x < 4; x += 1) {
-    html += '<div class="sockets">'
+    html += '<div class="sockets" id="sockets'+x+'">'
     for (y = 0; y < 4; y += 1) {
       if (x < 3) {
         html += '<div class="jumpers">'

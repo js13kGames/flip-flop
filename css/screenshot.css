@@ -1,0 +1,16 @@
+.bench {
+  width: 400px;
+  height: 250px;
+  min-height: 0;
+  overflow: hidden;
+}
+.workspace {
+  justify-content: space-around;
+}
+.note,
+.colophon,
+#sockets2,
+#sockets3
+{
+  display: none;
+}
