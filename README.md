@@ -37,9 +37,10 @@ recolor of [Lea Verou's blueprint grid pattern][paper]. The PCB background is a
 recolor of [Paul Salentiny's honeycomb pattern][hex]. The LEDs are based on
 [F. Stephen Kirschbaum's CSS LED lights][leds]. The buttons are based on
 [Sara Soueidan's soft button][button]. The sticky notes come from
-[Chris Heilmann's tutorial][notes]. The glowing numbers are done in the
-same neon that [Dudley Storey uses for his bar sign][neon]. The chips are my own
-design.
+[Chris Heilmann's tutorial][notes]. The text that shows up when chips glitch is
+[Mark Dotto's design][text]. The glowing numbers are done in the
+same neon that [Dudley Storey uses for his bar sign][neon]. The DIP-8 packaging
+for the SR latches that make up the chips is my own creation.
 
 ### Colors ###
 
@@ -81,3 +82,4 @@ license as the Decktet.
 [neon]: http://thenewcode.com/610/Create-A-Flickering-Neon-Bar-Sign-With-CSS "Dudley Storey (thenewcode.com): Create a Flickering Neon Bar Sign with CSS"
 [Sarah Mitchell]: https://github.com/thesmitchell "Sarah Mitchell (GitHub): TheSmitchell"
 [cbm]: http://mkweb.bcgsc.ca/colorblind/ "Martin Krzywinski (Genome Sciences Center): Color Palettes for Color Blindness"
+[text]: http://markdotto.com/playground/3d-text/ "Mark Dotto: 3D Text"

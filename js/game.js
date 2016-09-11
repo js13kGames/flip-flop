@@ -201,6 +201,7 @@ var sockets = {}
   , powered = {}
   , dirty = 0
   , picked = null
+  , shout = ''
 
 sockets.reset = function () {
   var $ = window.jQuery
@@ -243,6 +244,10 @@ sockets.reset = function () {
 
   // Hide the finals
   $('#finals').reset('unselectable tray hidden')
+
+  // Clear the shout text
+  shout = ''
+  $('#shout').html('').remove('fade')
 
   chipped = {}
   dirty |= 1
@@ -365,6 +370,16 @@ sockets.render = function () {
     }
   }
 
+  // Remove the fade every render so the shout's ready to display when the text changes
+  // #9c4d90 is a good test game for this; just play the first chip over and over
+  if (dirty > 0) {
+    $('#shout').html(shout).remove('fade')
+    if (shout !== '') {
+      shout = ''
+      $('#shout').add('fade')
+    }
+  }
+
   dirty = 0
 }
 
@@ -416,6 +431,11 @@ sockets.insert = function (chip, glitch) {
   chipped[picked].id = picked
   chipped[picked].order = Object.keys(chipped).length
   dirty |= 1
+
+  // Glitched chips trigger an animation
+  if (chipped[picked].glitched) {
+    this.shout()
+  }
 
   // Every fourth chip is automatically powered
   if (chipped[picked].order % 4 === 0) {
@@ -550,6 +570,38 @@ sockets.multiplier = function () {
 
 sockets.cbm = function () {
   dirty |= 1
+}
+
+sockets.shout = function () {
+  var text = 'Glitch!'
+    , count = 0
+    , id = null
+
+  for (id in chipped) {
+    if (chipped[id].glitched) {
+      count += 1
+    }
+  }
+
+  if (count > 1) {
+    switch (count) {
+      case 2: text = 'Double '+text; break;
+      case 3: text = 'Triple '+text; break;
+      case 4: text = 'Multi '+text; break;
+      case 5: text = 'Mega '+text; break;
+      case 6: text = 'Ultra '+text; break;
+      case 7: text = 'Monster '+text; break;
+      case 8: text = 'Ludicrous '+text; break;
+      case 9: text = '&#220;ber '+text; break;
+      case 10: text = 'Epic '+text; break;
+      case 11: text = 'Perfect '+text; break;
+      case 12: text = 'Inconceivable!'; break;
+      default: break;
+    }
+  }
+
+  shout = text.trim()
+  dirty |= 8
 }
 
 return sockets
