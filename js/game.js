@@ -826,11 +826,11 @@ function offChip (target, e) {
 function render () {
   requestAnimationFrame(render)
 
+  Power.render()
+  Reset.render()
   Sockets.render()
   Chips.render()
   Score.render()
-  Power.render()
-  Reset.render()
 }
 
 // Pick a random color out of the RGB color space.
@@ -847,11 +847,11 @@ function newColor () {
 }
 
 function resetGame () {
+  Power.reset()
+  Reset.reset()
   Sockets.reset()
   Chips.reset()
   Score.reset()
-  Power.reset()
-  Reset.reset()
 }
 
 function onReset (target, e) {
