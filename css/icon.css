@@ -1,0 +1,28 @@
+.bench {
+  width: 160px;
+  height: 160px;
+  min-height: 0;
+  overflow: hidden;
+  justify-content: center;
+}
+.workspace {
+  justify-content: center;
+}
+.sockets {
+  justify-content: space-around;
+}
+.counters {
+  margin-left: 1rem;
+}
+.hjumpers,
+.vjumpers,
+.note,
+.colophon,
+#tray,
+#reset,
+#sockets1,
+#sockets2,
+#sockets3
+{
+  display: none;
+}
