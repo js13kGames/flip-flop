@@ -102,13 +102,25 @@ a, a:visited {
   border: .1rem solid currentColor;
 }
 .picked .trace {
-  border-color: rgb(255,0,85);
+  background: rgb(82, 83, 85);
+  border: 0.3rem solid rgb(50,49,55);
+  border-top-color: rgb(112,112,114);
+  border-left-color: rgb(112,112,114);
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(51,51,51);
+  z-index: 1;
+  opacity: .45;
 }
 .pads:first-child {
   margin-left: -.6rem;
 }
+.picked .pads:first-child {
+  margin-left: -.8rem;
+}
 .pads:last-child {
   margin-right: -.6rem;
+}
+.picked .pads:last-child {
+  margin-right: -.8rem;
 }
 .pads {
   display: flex;
@@ -136,7 +148,15 @@ a, a:visited {
   ;
 }
 .picked .pad {
-  background: #d4af36;
+  border-radius: 0;
+  width: .5rem;
+  height: .7rem;
+  background: silver;
+  background: linear-gradient(-45deg, rgb(160,160,160) 0%, rgb(232,232,232) 56%);
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(51,51,51);
+}
+.picked .pad:before {
+  display: none;
 }
 .cutout {
   width: 1.5rem;
@@ -149,7 +169,7 @@ a, a:visited {
   margin-top: -.1rem;
 }
 .picked .cutout {
-  border-color: rgb(255,0,85);
+  display: none;
 }
 .jumpers {
   display: flex;
