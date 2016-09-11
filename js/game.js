@@ -39,6 +39,62 @@ rng.shuffle = function (array) {
 return rng
 }())
 
+var Power = (function () {
+'use strict';
+
+var power = {}
+  , $ = window.jQuery
+  , mode = false
+  , klass = 'led on'
+  , start = 0
+  , dirty = 0
+
+power.reset = function () {
+  $('#power').reset('button off')
+  $('#power-led').reset('led on')
+
+  mode = false
+  start = 0
+
+  dirty = 0
+}
+
+// If the button's held for more than N seconds, make the LED blink.
+power.render = function () {
+  if (dirty & 1) {
+    if (start > 0) {
+      $('#power-led').remove('off').remove('blink').add('on')
+      if (Date.now() - start >= 1500) {
+        $('#power-led').remove('off').add('on').add('blink')
+        mode = !mode
+        dirty = 0
+      }
+      // Don't clear dirty flag. We want to check elapsed time on the next pass.
+    } else {
+      $('#power-led').reset(klass)
+      dirty = 0
+    }
+  }
+}
+
+power.start = function () {
+  start = Date.now()
+  klass = $('#power-led').unwrap().className
+  dirty |= 1
+}
+
+power.stop = function () {
+  start = 0
+  dirty |= 1
+}
+
+power.cbm = function () {
+  return mode
+}
+
+return power
+}())
+
 function makeSocketHTML () {
   var html = ''
 
@@ -72,9 +128,9 @@ function makeChipHTML (chip) {
   html += '<span class="pin"></span>'
   html += '</div>'
   html += '<div class="chip'+(chip.glitched ? ' glitched' : '')+'">'
-  html += '<span class="led '+chip.suit1+'"></span>'
+  html += '<span class="led '+(Power.cbm() ? ' cbm ' : '')+chip.suit1+'"></span>'
   html += chip.percent
-  html += '<span class="led '+chip.suit2+'"></span>'
+  html += '<span class="led '+(Power.cbm() ? ' cbm ' : '')+chip.suit2+'"></span>'
   html += '</div>'
   html += '<div class="pins">'
   html += '<span class="pin"></span>'
@@ -454,6 +510,10 @@ sockets.bonus = function () {
   return score
 }
 
+sockets.cbm = function () {
+  dirty |= 1
+}
+
 return sockets
 }())
 
@@ -605,6 +665,10 @@ chips.get = function () {
   return null
 }
 
+chips.cbm = function () {
+  dirty |= 1
+}
+
 return chips
 }())
 
@@ -726,14 +790,21 @@ function offSocket (target, e) {
 
 function onPower (target, e) {
   target.add('on')
+  Power.start()
 }
 
 function offPower (target, e) {
   target.remove('on')
+  Power.stop()
+
   if (Sockets.canPower()) {
     Sockets.power()
     Score.compute()
   }
+
+  // Rrerender chips and sockets in case color blind mode changed.
+  Chips.cbm()
+  Sockets.cbm()
 }
 
 function onChip (target, e) {
@@ -758,6 +829,7 @@ function render () {
   Sockets.render()
   Chips.render()
   Score.render()
+  Power.render()
   Reset.render()
 }
 
@@ -778,6 +850,7 @@ function resetGame () {
   Sockets.reset()
   Chips.reset()
   Score.reset()
+  Power.reset()
   Reset.reset()
 }
 

@@ -371,6 +371,15 @@ a, a:visited {
   , currentColor 0 0 6px
   ;
 }
+.led.cbm {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  text-shadow: 0 0 .1rem rgb(0,0,0);
+}
 .led.blink {
   animation: blinky .5s infinite;
 }
@@ -398,20 +407,38 @@ to {
 .moons {
   color: rgb(213, 94, 0);
 }
+.moons.cbm:before {
+  content: 'A';
+}
 .suns {
   color: rgb(230, 159, 0);
+}
+.suns.cbm:before {
+  content: 'B';
 }
 .waves {
   color: rgb(240, 228, 66);
 }
+.waves.cbm:before {
+  content: 'C';
+}
 .leaves {
   color: rgb(0, 158, 115);
+}
+.leaves.cbm:before {
+  content: 'D';
 }
 .wyrms {
   color: rgb(0, 144, 178);
 }
+.wyrms.cbm:before {
+  content: 'E';
+}
 .knots {
   color: rgb(204, 121, 167);
+}
+.knots.cbm:before {
+  content: 'F';
 }
 .unselectable {
   -webkit-user-select: none;
