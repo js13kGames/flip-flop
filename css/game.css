@@ -349,8 +349,9 @@ a, a:visited {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
-  line-height: 1.6rem;
+  width: 3.4rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
   padding: 0.3rem;
   background: rgb(82, 83, 85);
   border: 0.3rem solid rgb(50,49,55);
@@ -368,9 +369,14 @@ a, a:visited {
 .chip > img {
   margin: 1rem .3rem;
 }
+.chip .led {
+  width: 1.2rem;
+  height: 1.2rem;
+}
 .led {
   width: 1rem;
   height: 1rem;
+  text-align: center;
   border-radius: 50%;
   background-color: currentColor;
   box-shadow:
